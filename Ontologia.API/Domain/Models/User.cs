@@ -10,7 +10,8 @@
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
 
-        // Relationship with UserConcept Entity
+        // Relationship with UserConcept | UseSuggestions Entities
         public IList<UserConcept> UserConcepts { get; set; } = new List<UserConcept>();
+        public IList<UserSuggestion> UserSuggestions { get; set; } = new List<UserSuggestion>();
     }
 }
