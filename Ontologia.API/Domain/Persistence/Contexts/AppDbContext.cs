@@ -60,6 +60,30 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .WithMany(uc => uc.UserConcepts)
                 .HasForeignKey(uc => uc.UserId);
 
+            // UserSuggestion Entity
+
+            builder.Entity<UserSuggestion>().ToTable("UserSuggestions");
+
+            // Constraints
+
+            builder.Entity<UserSuggestion>().HasKey(p => p.Id);
+            builder.Entity<UserSuggestion>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserSuggestion>().Property(p => p.Comment).IsRequired();
+            builder.Entity<UserSuggestion>().Property(p => p.OptionalEmail).IsRequired();
+            builder.Entity<UserSuggestion>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<UserSuggestion>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserSuggestion>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // Relationships
+
+            builder.Entity<User>()
+                .HasMany(us => us.UserSuggestions)
+                .WithOne(us => us.User)
+                .HasForeignKey(us => us.UserId);
+            builder.Entity<UserSuggestion>()
+                .HasOne(us => us.User)
+                .WithMany(us => us.UserSuggestions)
+                .HasForeignKey(us => us.UserId);
 
             // Naming Conventions Policy
 
