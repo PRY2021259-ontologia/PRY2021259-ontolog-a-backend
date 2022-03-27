@@ -10,8 +10,7 @@ namespace Ontologia.API.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<User, UserResource>();
-            /* TODO */
-
+            CreateMap<UserConcept, UserConceptResource>();
         }
     }
 }

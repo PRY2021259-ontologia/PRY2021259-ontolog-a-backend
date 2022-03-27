@@ -3,10 +3,6 @@ using Ontologia.API.Domain.Models;
 using Ontologia.API.Domain.Services;
 using Ontologia.API.Resources;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Swashbuckle.AspNetCore.Annotations;
 using Ontologia.API.Extensions;
 

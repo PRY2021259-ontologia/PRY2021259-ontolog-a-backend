@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Ontologia.API.Domain.Models;
 using Ontologia.API.Domain.Persistence.Contexts;
 using Ontologia.API.Domain.Persistence.Repositories;
 
 namespace Ontologia.API.Persistence.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : BaseRepository, IUserConceptRepository
     {
         public UserRepository(AppDbContext context) : base(context)
         {
