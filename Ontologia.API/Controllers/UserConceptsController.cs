@@ -127,7 +127,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "userConcet to user Unassigned", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> UnassignUserLanguage(int userId, int userConceptId)
+        public async Task<IActionResult> UnassignUserConceptToUser(int userId, int userConceptId)
         {
             var result = await _userConceptService.UnassignUserConcept(userId, userConceptId);
             if (!result.Success)
