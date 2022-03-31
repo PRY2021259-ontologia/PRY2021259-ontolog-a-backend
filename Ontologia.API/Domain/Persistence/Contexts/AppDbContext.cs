@@ -27,9 +27,9 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
-            builder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
-            builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(50);
+            builder.Entity<User>().Property(p => p.Name).IsRequired();
+            builder.Entity<User>().Property(p => p.LastName).IsRequired();
+            builder.Entity<User>().Property(p => p.Email).IsRequired();
             builder.Entity<User>().Property(p => p.IsActive).IsRequired();
             builder.Entity<User>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();

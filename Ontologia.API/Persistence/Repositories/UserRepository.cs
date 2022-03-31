@@ -5,7 +5,7 @@ using Ontologia.API.Domain.Persistence.Repositories;
 
 namespace Ontologia.API.Persistence.Repositories
 {
-    public class UserRepository : BaseRepository, IUserConceptRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
         public UserRepository(AppDbContext context) : base(context)
         {

@@ -99,7 +99,7 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
-        [HttpPost("{userId}/userConcepts/{userConceptId}")]
+        [HttpPost("{userConceptId}/userConcepts/{userId}")]
         [SwaggerOperation(
             Summary = "Assign userConcet to user",
             Description = "Assign userConcet to user by userConceptId and userId",
@@ -118,7 +118,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpDelete("{userId}/userConcepts/{userConceptId}")]
+        [HttpDelete("{userConceptId}/userConcepts/{userId}")]
         [SwaggerOperation(
             Summary = "Unassign userConcet to user",
             Description = "Unassign userConcet to user by userConceptId and userId",

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ontologia.API.Domain.Models;
-using Ontologia.API.Extensions;
 using Ontologia.API.Resources;
 
 namespace Ontologia.API.Mapping
