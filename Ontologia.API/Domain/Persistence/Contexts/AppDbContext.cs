@@ -9,6 +9,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<UserConcept> UserConcepts { get; set; }
         public DbSet<UserSuggestion> UserSuggestions { get; set; }
+        public DbSet<UserHistory> UserHistories { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -84,6 +85,31 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .HasOne(us => us.User)
                 .WithMany(us => us.UserSuggestions)
                 .HasForeignKey(us => us.UserId);
+
+            // UserHistory Entity
+
+            builder.Entity<UserHistory>().ToTable("UserHistories");
+
+            // Constraints
+
+            builder.Entity<UserHistory>().HasKey(p => p.Id);
+            builder.Entity<UserHistory>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserHistory>().Property(p => p.Url).IsRequired();
+            builder.Entity<UserHistory>().Property(p => p.TextSearched).IsRequired();
+            builder.Entity<UserHistory>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<UserHistory>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserHistory>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // Relationships
+
+            builder.Entity<User>()
+                .HasMany(uh => uh.UserHistories)
+                .WithOne(uh => uh.User)
+                .HasForeignKey(uh => uh.UserId);
+            builder.Entity<UserHistory>()
+                .HasOne(uh => uh.User)
+                .WithMany(uh => uh.UserHistories)
+                .HasForeignKey(uh => uh.UserId);
 
             // Naming Conventions Policy
 

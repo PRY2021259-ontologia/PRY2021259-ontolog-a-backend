@@ -34,11 +34,13 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserConceptRepository, UserConceptRepository>();
 builder.Services.AddScoped<IUserSuggestionRepository, UserSuggestionRepository>();
+builder.Services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
 
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserConceptService, UserConceptService>();
 builder.Services.AddScoped<IUserSuggestionService, UserSuggestionService>();
+builder.Services.AddScoped<IUserHistoryService, UserHistoryService>();
 
 //Endpoinst case conventions configurations
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

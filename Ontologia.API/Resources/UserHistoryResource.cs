@@ -1,6 +1,6 @@
-﻿namespace Ontologia.API.Domain.Models
+﻿namespace Ontologia.API.Resources
 {
-    public class UserHistory
+    public class UserHistoryResource
     {
         public Guid Id { get; set; }
         public string Url { get; set; }
@@ -8,9 +8,5 @@
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
-
-        // Relationship with User Entity
-        public Guid UserId { get; set; }
-        public User User { get; set; }
     }
 }
