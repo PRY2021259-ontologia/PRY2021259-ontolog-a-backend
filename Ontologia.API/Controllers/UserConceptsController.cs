@@ -56,7 +56,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Returned userConcept", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> GetActionAsync(int userConceptId)
+        public async Task<ActionResult> GetActionAsync(Guid userConceptId)
         {
             var result = await _userConceptService.GetById(userConceptId);
             if (!result.Success)
@@ -74,7 +74,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Deleted UserConcept", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> DeleteAsync(int userConceptId)
+        public async Task<IActionResult> DeleteAsync(Guid userConceptId)
         {
             var result = await _userConceptService.Delete(userConceptId);
             if (!result.Success)
@@ -108,7 +108,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "userConcet to user Assigned", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> AssignUserConceptToUser(int userId, int userConceptId)
+        public async Task<IActionResult> AssignUserConceptToUser(Guid userId, Guid userConceptId)
         {
             var result = await _userConceptService.AssignUserConcept(userId, userConceptId);
             if (!result.Success)
@@ -127,7 +127,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "userConcet to user Unassigned", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> UnassignUserConceptToUser(int userId, int userConceptId)
+        public async Task<IActionResult> UnassignUserConceptToUser(Guid userId, Guid userConceptId)
         {
             var result = await _userConceptService.UnassignUserConcept(userId, userConceptId);
             if (!result.Success)

@@ -16,7 +16,7 @@ namespace Ontologia.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserResponse> DeleteAsync(int id)
+        public async Task<UserResponse> DeleteAsync(Guid id)
         {
             var existingUser = await _userRepository.FindById(id);
 
@@ -37,7 +37,7 @@ namespace Ontologia.API.Services
 
         }
 
-        public async Task<UserResponse> GetByIdAsync(int id)
+        public async Task<UserResponse> GetByIdAsync(Guid id)
         {
             var existingUser = await _userRepository.FindById(id);
 
@@ -67,7 +67,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserResponse> UpdateAsync(int id, User user)
+        public async Task<UserResponse> UpdateAsync(Guid id, User user)
         {
             var existingUser= await _userRepository.FindById(id);
 

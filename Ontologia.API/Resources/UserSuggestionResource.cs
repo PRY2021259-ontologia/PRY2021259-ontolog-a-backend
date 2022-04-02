@@ -2,7 +2,7 @@
 {
     public class UserSuggestionResource
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Comment { get; set; }
         public string OptionalEmail { get; set; }
         public bool IsActive { get; set; }

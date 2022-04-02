@@ -6,7 +6,7 @@ namespace Ontologia.API.Domain.Persistence.Repositories
     {
         Task<IEnumerable<User>> ListAsync();
         Task AddAsync(User user);
-        Task<User> FindById(int id);
+        Task<User> FindById(Guid id);
         void Update(User user);
         void Remove(User user);
     }

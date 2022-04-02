@@ -16,19 +16,19 @@ namespace Ontologia.API.Persistence.Repositories
             await _context.UserConcepts.AddAsync(userConcept);
         }
 
-        public async Task AssingUserConcept(int userId, int userConceptId)
+        public async Task AssingUserConcept(Guid userId, Guid userConceptId)
         {
             User user = await _context.Users.FindAsync(userId);
             UserConcept userConcept= await _context.UserConcepts.FindAsync(userConceptId);
 
             if (user != null && userConcept != null)
             {
-                userConcept.UserId = userId ;
+                userConcept.UserId = userId;
                 Update(userConcept);
             }
         }
 
-        public async Task<UserConcept> GetById(int userConceptId)
+        public async Task<UserConcept> GetById(Guid userConceptId)
         {
             return await _context.UserConcepts.FindAsync(userConceptId);
         }
@@ -38,7 +38,7 @@ namespace Ontologia.API.Persistence.Repositories
             return await _context.UserConcepts.ToListAsync();
         }
 
-        public async Task<IEnumerable<UserConcept>> ListByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserConcept>> ListByUserIdAsync(Guid userId)
         {
             return await _context.UserConcepts.Where(uC => uC.UserId == userId).ToListAsync();
         }
@@ -48,14 +48,14 @@ namespace Ontologia.API.Persistence.Repositories
             _context.UserConcepts.Remove(userConcept);
         }
 
-        public async Task UnassingUserConcept(int userId, int userConceptId)
+        public async Task UnassingUserConcept(Guid userId, Guid userConceptId)
         {
             User user = await _context.Users.FindAsync(userId);
             UserConcept userConcept = await _context.UserConcepts.FindAsync(userConceptId);
 
             if (user != null && userConcept != null)
             {
-                userConcept.UserId = 0;
+                userConcept.UserId = userId;
                 Update(userConcept);
             }
         }

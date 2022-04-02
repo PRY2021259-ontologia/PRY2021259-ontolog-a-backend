@@ -16,7 +16,7 @@ namespace Ontologia.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserSuggestionResponse> AssignUserSuggestion(int userId, int userSuggestionId)
+        public async Task<UserSuggestionResponse> AssignUserSuggestion(Guid userId, Guid userSuggestionId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserSuggestionResponse> Delete(int userSuggestionId)
+        public async Task<UserSuggestionResponse> Delete(Guid userSuggestionId)
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)
@@ -48,7 +48,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserSuggestionResponse> GetById(int userSuggestionId)
+        public async Task<UserSuggestionResponse> GetById(Guid userSuggestionId)
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)
@@ -61,7 +61,7 @@ namespace Ontologia.API.Services
             return await _userSuggestionRepository.ListAsync();
         }
 
-        public async Task<IEnumerable<UserSuggestion>> ListByUserId(int userId)
+        public async Task<IEnumerable<UserSuggestion>> ListByUserId(Guid userId)
         {
             return await _userSuggestionRepository.ListByUserIdAsync(userId);
         }
@@ -80,7 +80,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserSuggestionResponse> UnassignUserSuggestion(int userId, int userSuggestionId)
+        public async Task<UserSuggestionResponse> UnassignUserSuggestion(Guid userId, Guid userSuggestionId)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserSuggestionResponse> Update(int userSuggestionId, UserSuggestion userSuggestion)
+        public async Task<UserSuggestionResponse> Update(Guid userSuggestionId, UserSuggestion userSuggestion)
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)

@@ -55,7 +55,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Returned userSuggestion", typeof(UserSuggestionResource))]
         [ProducesResponseType(typeof(UserSuggestionResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> GetActionAsync(int userSuggestionId)
+        public async Task<ActionResult> GetActionAsync(Guid userSuggestionId)
         {
             var result = await _userSuggestionService.GetById(userSuggestionId);
             if (!result.Success)
@@ -73,7 +73,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Deleted UserSuggestion", typeof(UserSuggestionResource))]
         [ProducesResponseType(typeof(UserSuggestionResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> DeleteAsync(int userSuggestionId)
+        public async Task<IActionResult> DeleteAsync(Guid userSuggestionId)
         {
             var result = await _userSuggestionService.Delete(userSuggestionId);
             if (!result.Success)
@@ -107,7 +107,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "userSuggestion to user Assigned", typeof(UserSuggestionResource))]
         [ProducesResponseType(typeof(UserSuggestionResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> AssignUserSuggestionToUser(int userId, int userSuggestionId)
+        public async Task<IActionResult> AssignUserSuggestionToUser(Guid userId, Guid userSuggestionId)
         {
             var result = await _userSuggestionService.AssignUserSuggestion(userId, userSuggestionId);
             if (!result.Success)
@@ -126,7 +126,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "userSuggestion to user Unassigned", typeof(UserSuggestionResource))]
         [ProducesResponseType(typeof(UserSuggestionResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> UnassignUserSuggestionToUser(int userId, int userSuggestionId)
+        public async Task<IActionResult> UnassignUserSuggestionToUser(Guid userId, Guid userSuggestionId)
         {
             var result = await _userSuggestionService.UnassignUserSuggestion(userId, userSuggestionId);
             if (!result.Success)

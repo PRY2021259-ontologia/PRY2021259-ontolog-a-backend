@@ -7,11 +7,11 @@ namespace Ontologia.API.Domain.Services
     {
         Task<IEnumerable<UserConcept>> ListAsync();
         Task<UserConceptResponse> SaveAsync(UserConcept userConcept);
-        Task<IEnumerable<UserConcept>> ListByUserId(int userId);
-        Task<UserConceptResponse> GetById(int userConceptId);
-        Task<UserConceptResponse> Update(int userConceptId, UserConcept userConcept);
-        Task<UserConceptResponse> Delete(int userConceptId);
-        Task<UserConceptResponse> AssignUserConcept(int userId, int userConceptId);
-        Task<UserConceptResponse> UnassignUserConcept(int userId, int userConceptId);
+        Task<IEnumerable<UserConcept>> ListByUserId(Guid userId);
+        Task<UserConceptResponse> GetById(Guid userConceptId);
+        Task<UserConceptResponse> Update(Guid userConceptId, UserConcept userConcept);
+        Task<UserConceptResponse> Delete(Guid userConceptId);
+        Task<UserConceptResponse> AssignUserConcept(Guid userId, Guid userConceptId);
+        Task<UserConceptResponse> UnassignUserConcept(Guid userId, Guid userConceptId);
     }
 }

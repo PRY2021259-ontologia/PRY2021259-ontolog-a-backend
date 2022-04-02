@@ -6,10 +6,10 @@ namespace Ontologia.API.Domain.Persistence.Repositories
     {
         Task<IEnumerable<UserSuggestion>> ListAsync();
         Task AddAsync(UserSuggestion userSuggestion);
-        Task<IEnumerable<UserSuggestion>> ListByUserIdAsync(int userId);
-        Task<UserSuggestion> GetById(int userSuggestionId);
-        Task AssingUserSuggestion(int userId, int userSuggestionId);
-        Task UnassingUserSuggestion(int userId, int userSuggestionId);
+        Task<IEnumerable<UserSuggestion>> ListByUserIdAsync(Guid userId);
+        Task<UserSuggestion> GetById(Guid userSuggestionId);
+        Task AssingUserSuggestion(Guid userId, Guid userSuggestionId);
+        Task UnassingUserSuggestion(Guid userId, Guid userSuggestionId);
         void Update(UserSuggestion userSuggestion);
         void Remove(UserSuggestion userSuggestion);
     }

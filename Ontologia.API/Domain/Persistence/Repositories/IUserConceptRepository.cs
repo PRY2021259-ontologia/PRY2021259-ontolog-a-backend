@@ -6,10 +6,10 @@ namespace Ontologia.API.Domain.Persistence.Repositories
     {
         Task<IEnumerable<UserConcept>> ListAsync();
         Task AddAsync(UserConcept userConcept);
-        Task<IEnumerable<UserConcept>> ListByUserIdAsync(int userId);
-        Task<UserConcept> GetById(int userConceptId);
-        Task AssingUserConcept(int userId, int userConceptId);
-        Task UnassingUserConcept(int userId, int userConceptId);
+        Task<IEnumerable<UserConcept>> ListByUserIdAsync(Guid userId);
+        Task<UserConcept> GetById(Guid userConceptId);
+        Task AssingUserConcept(Guid userId, Guid userConceptId);
+        Task UnassingUserConcept(Guid userId, Guid userConceptId);
         void Update(UserConcept userConcept);
         void Remove(UserConcept userConcept);
     }

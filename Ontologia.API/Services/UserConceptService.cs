@@ -16,7 +16,7 @@ namespace Ontologia.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserConceptResponse> AssignUserConcept(int userId, int userConceptId)
+        public async Task<UserConceptResponse> AssignUserConcept(Guid userId, Guid userConceptId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserConceptResponse> Delete(int userConceptId)
+        public async Task<UserConceptResponse> Delete(Guid userConceptId)
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)
@@ -48,7 +48,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserConceptResponse> GetById(int userConceptId)
+        public async Task<UserConceptResponse> GetById(Guid userConceptId)
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)
@@ -61,7 +61,7 @@ namespace Ontologia.API.Services
             return await _userConceptRepository.ListAsync();
         }
 
-        public async Task<IEnumerable<UserConcept>> ListByUserId(int userId)
+        public async Task<IEnumerable<UserConcept>> ListByUserId(Guid userId)
         {
             return await _userConceptRepository.ListByUserIdAsync(userId);
         }
@@ -80,7 +80,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserConceptResponse> UnassignUserConcept(int userId, int userConceptId)
+        public async Task<UserConceptResponse> UnassignUserConcept(Guid userId, Guid userConceptId)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserConceptResponse> Update(int userConceptId, UserConcept userConcept)
+        public async Task<UserConceptResponse> Update(Guid userConceptId, UserConcept userConcept)
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)

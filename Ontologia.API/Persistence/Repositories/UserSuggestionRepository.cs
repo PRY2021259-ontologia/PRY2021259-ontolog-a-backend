@@ -16,7 +16,7 @@ namespace Ontologia.API.Persistence.Repositories
             await _context.UserSuggestions.AddAsync(userSuggestion);
         }
 
-        public async Task AssingUserSuggestion(int userId, int userSuggestionId)
+        public async Task AssingUserSuggestion(Guid userId, Guid userSuggestionId)
         {
             User user = await _context.Users.FindAsync(userId);
             UserSuggestion userSuggestion = await _context.UserSuggestions.FindAsync(userSuggestionId);
@@ -28,7 +28,7 @@ namespace Ontologia.API.Persistence.Repositories
             }
         }
 
-        public async Task<UserSuggestion> GetById(int userSuggestionId)
+        public async Task<UserSuggestion> GetById(Guid userSuggestionId)
         {
             return await _context.UserSuggestions.FindAsync(userSuggestionId);
         }
@@ -38,7 +38,7 @@ namespace Ontologia.API.Persistence.Repositories
             return await _context.UserSuggestions.ToListAsync();
         }
 
-        public async Task<IEnumerable<UserSuggestion>> ListByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserSuggestion>> ListByUserIdAsync(Guid userId)
         {
             return await _context.UserSuggestions.Where(uS => uS.UserId == userId).ToListAsync();
         }
@@ -48,14 +48,14 @@ namespace Ontologia.API.Persistence.Repositories
             _context.UserSuggestions.Remove(userSuggestion);
         }
 
-        public async Task UnassingUserSuggestion(int userId, int userSuggestionId)
+        public async Task UnassingUserSuggestion(Guid userId, Guid userSuggestionId)
         {
             User user = await _context.Users.FindAsync(userId);
             UserSuggestion userSuggestion= await _context.UserSuggestions.FindAsync(userSuggestionId);
 
             if (user != null && userSuggestion != null)
             {
-                userSuggestion.UserId = 0;
+                userSuggestion.UserId = userId;
                 Update(userSuggestion);
             }
         }

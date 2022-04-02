@@ -49,7 +49,7 @@ namespace Ontologia.API.Controllers
         [ProducesResponseType(typeof(UserResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync(Guid id)
         {
             var result = await _userService.GetByIdAsync(id);
 
@@ -95,7 +95,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "User Updated", typeof(UserResource))]
         [ProducesResponseType(typeof(UserResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveUserResource resource)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] SaveUserResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
@@ -121,7 +121,7 @@ namespace Ontologia.API.Controllers
         [ProducesResponseType(typeof(UserResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _userService.DeleteAsync(id);
 
