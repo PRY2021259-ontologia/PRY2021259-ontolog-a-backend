@@ -22,6 +22,8 @@ namespace Ontologia.API.Controllers
             _mapper = mapper;
         }
 
+        // General Methods
+
         [HttpPost]
         [SwaggerOperation(
             Summary = "Add new userConcept",
@@ -98,11 +100,13 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
+        // Methods for User Entity
+
         [HttpPost("{userConceptId}/userConcepts/{userId}")]
         [SwaggerOperation(
             Summary = "Assign userConcet to user",
             Description = "Assign userConcet to user by userConceptId and userId",
-            OperationId = "AssignUserConcept"
+            OperationId = "AssignUserConcept To User"
         )]
         [SwaggerResponse(200, "userConcet to user Assigned", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
@@ -121,7 +125,7 @@ namespace Ontologia.API.Controllers
         [SwaggerOperation(
             Summary = "Unassign userConcet to user",
             Description = "Unassign userConcet to user by userConceptId and userId",
-            OperationId = "UnassignUserConcept"
+            OperationId = "UnassignUserConcept To User"
         )]
         [SwaggerResponse(200, "userConcet to user Unassigned", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
@@ -136,5 +140,43 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
+        // Methods for ConceptType Entity
+        [HttpPost("{userConceptId}/userConcepts/{conceptTypeId}")]
+        [SwaggerOperation(
+            Summary = "Assign userConcet to conceptType",
+            Description = "Assign userConcet to conceptType by userConceptId and conceptTypeId",
+            OperationId = "AssignUserConcept to ConceptType"
+        )]
+        [SwaggerResponse(200, "userConcet to user Assigned", typeof(UserConceptResource))]
+        [ProducesResponseType(typeof(UserConceptResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId)
+        {
+            var result = await _userConceptService.AssignUserConceptToConceptType(conceptTypeId, userConceptId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var userConcept = await _userConceptService.GetById(result.Resource.Id);
+            var userConceptResource = _mapper.Map<UserConcept, UserConceptResource>(userConcept.Resource);
+            return Ok(userConceptResource);
+        }
+
+        [HttpDelete("{userId}/userConcepts/{conceptTypeId}")]
+        [SwaggerOperation(
+            Summary = "Unassign userConcet to conceptType",
+            Description = "Unassign userConcet to conceptType by userConceptId and conceptTypeId",
+            OperationId = "UnassignUserConcept to ConceptType"
+        )]
+        [SwaggerResponse(200, "userConcet to user Unassigned", typeof(UserConceptResource))]
+        [ProducesResponseType(typeof(UserConceptResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> UnassignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId)
+        {
+            var result = await _userConceptService.UnassignUserConceptToConceptType(conceptTypeId, userConceptId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var userConcept = await _userConceptService.GetById(result.Resource.Id);
+            var userConceptResource = _mapper.Map<UserConcept, UserConceptResource>(userConcept.Resource);
+            return Ok(userConceptResource);
+        }
     }
 }

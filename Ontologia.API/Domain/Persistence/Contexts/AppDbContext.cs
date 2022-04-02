@@ -69,14 +69,14 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .WithMany(uc => uc.UserConcepts)
                 .HasForeignKey(uc => uc.UserId);
 
-            ////builder.Entity<ConceptType>()
-            ////    .HasMany(uc => uc.UserConcepts)
-            ////    .WithOne(uc => uc.ConceptType)
-            ////    .HasForeignKey(uc => uc.ConceptTypeId);
-            //builder.Entity<UserConcept>()
-            //    .HasOne(uc => uc.ConceptType)
-            //    .WithMany(uc => uc.UserConcepts)
-            //    .HasForeignKey(uc => uc.ConceptTypeId);
+            builder.Entity<ConceptType>()
+                .HasMany(uc => uc.UserConcepts)
+                .WithOne(uc => uc.ConceptType)
+                .HasForeignKey(uc => uc.ConceptTypeId);
+            builder.Entity<UserConcept>()
+                .HasOne(uc => uc.ConceptType)
+                .WithMany(uc => uc.UserConcepts)
+                .HasForeignKey(uc => uc.ConceptTypeId);
 
             // UserSuggestion Entity
 
@@ -143,11 +143,6 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<ConceptType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<ConceptType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ConceptType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
-
-            //builder.Entity<ConceptType>()
-            //    .HasMany(c => c.UserConcepts)
-            //    .WithOne(c => c.ConceptType)
-            //    .HasForeignKey(c => c.ConceptTypeId);
 
             // Naming Conventions Policy
 
