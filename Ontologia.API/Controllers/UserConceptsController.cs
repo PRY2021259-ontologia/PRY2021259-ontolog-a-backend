@@ -10,7 +10,7 @@ namespace Ontologia.API.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("/api/[controller]")]
+    [Route("/api/")]
     public class UserConceptsController : ControllerBase
     {
         private readonly IUserConceptService _userConceptService;
@@ -22,9 +22,9 @@ namespace Ontologia.API.Controllers
             _mapper = mapper;
         }
 
-        // General Methods
+        // General HTTP Methods
 
-        [HttpPost]
+        [HttpPost("userConcepts")]
         [SwaggerOperation(
             Summary = "Add new userConcept",
             Description = "Add new userConcept with initial data",
@@ -48,7 +48,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpGet("{userConceptId}")]
+        [HttpGet("userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Get userConcept",
             Description = "Get userConcept In the Data Base by id",
@@ -66,7 +66,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpDelete("{userConceptId}")]
+        [HttpDelete("userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Delete userConcept",
             Description = "Delete UserConcept In the Data Base by id",
@@ -84,10 +84,10 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpGet]
+        [HttpGet("userConcepts")]
         [SwaggerOperation(
            Summary = "Get All userConcepts",
-           Description = "Get All userConcepts In the Data Base by id",
+           Description = "Get All userConcepts In the Data Base",
            OperationId = "GetAllUserConcepts"
         )]
         [SwaggerResponse(200, "Returned All UserConcepts", typeof(IEnumerable<UserConceptResource>))]
@@ -100,9 +100,10 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
-        // Methods for User Entity
+        // HTTP Methods for User Entity
 
-        [HttpPost("{userConceptId}/userConcepts/{userId}")]
+        [HttpPost]
+        [Route("users/{userId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Assign userConcet to user",
             Description = "Assign userConcet to user by userConceptId and userId",
@@ -121,7 +122,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpDelete("{userId}/userConcepts/{userConceptId}")]
+        [HttpDelete("users/{userId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Unassign userConcet to user",
             Description = "Unassign userConcet to user by userConceptId and userId",
@@ -140,8 +141,8 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        // Methods for ConceptType Entity
-        [HttpPost("{userConceptId}/userConcepts/{conceptTypeId}")]
+        // HTTP Methods for ConceptType Entity
+        [HttpPost("conceptTypes/{conceptTypeId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Assign userConcet to conceptType",
             Description = "Assign userConcet to conceptType by userConceptId and conceptTypeId",
@@ -160,7 +161,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpDelete("{userId}/userConcepts/{conceptTypeId}")]
+        [HttpDelete("conceptTypes/{conceptTypeId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Unassign userConcet to conceptType",
             Description = "Unassign userConcet to conceptType by userConceptId and conceptTypeId",

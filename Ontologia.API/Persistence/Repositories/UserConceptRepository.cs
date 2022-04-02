@@ -64,7 +64,7 @@ namespace Ontologia.API.Persistence.Repositories
 
             if (user != null && userConcept != null)
             {
-                userConcept.UserId = userId;
+                userConcept.UserId = Guid.Empty;
                 Update(userConcept);
             }
         }
@@ -95,7 +95,7 @@ namespace Ontologia.API.Persistence.Repositories
 
             if (conceptType != null && userConcept != null)
             {
-                userConcept.ConceptTypeId = conceptTypeId;
+                userConcept.ConceptTypeId = Guid.Empty;
                 Update(userConcept);
             }
         }
