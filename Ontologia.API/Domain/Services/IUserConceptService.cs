@@ -5,13 +5,21 @@ namespace Ontologia.API.Domain.Services
 {
     public interface IUserConceptService
     {
-        Task<IEnumerable<UserConcept>> ListAsync();
+        // General Methods
         Task<UserConceptResponse> SaveAsync(UserConcept userConcept);
-        Task<IEnumerable<UserConcept>> ListByUserId(Guid userId);
+        Task<IEnumerable<UserConcept>> ListAsync();
         Task<UserConceptResponse> GetById(Guid userConceptId);
         Task<UserConceptResponse> Update(Guid userConceptId, UserConcept userConcept);
         Task<UserConceptResponse> Delete(Guid userConceptId);
-        Task<UserConceptResponse> AssignUserConcept(Guid userId, Guid userConceptId);
-        Task<UserConceptResponse> UnassignUserConcept(Guid userId, Guid userConceptId);
+
+        // Methods for User Entity
+        Task<IEnumerable<UserConcept>> ListByUserId(Guid userId);
+        Task<UserConceptResponse> AssignUserConceptToUser(Guid userId, Guid userConceptId);
+        Task<UserConceptResponse> UnassignUserConceptToUser(Guid userId, Guid userConceptId);
+
+        // Methods for ConceptType Entity
+        Task<IEnumerable<UserConcept>> ListByConceptTypeId(Guid conceptTypeId);
+        Task<UserConceptResponse> AssignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
+        Task<UserConceptResponse> UnassignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
     }
 }

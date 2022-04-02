@@ -1,0 +1,94 @@
+﻿using Ontologia.API.Domain.Models;
+using Ontologia.API.Domain.Persistence.Repositories;
+using Ontologia.API.Domain.Services;
+using Ontologia.API.Domain.Services.Communications;
+
+namespace Ontologia.API.Services
+{
+    public class ConceptTypeService : IConceptTypeService
+    {
+        private readonly IConceptTypeRepository _conceptTypeRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ConceptTypeService(IConceptTypeRepository conceptTypeRepository, IUnitOfWork unitOfWork)
+        {
+            _conceptTypeRepository = conceptTypeRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<ConceptTypeResponse> DeleteAsync(Guid id)
+        {
+            var existingConceptType = await _conceptTypeRepository.FindById(id);
+
+            if (existingConceptType == null)
+                return new ConceptTypeResponse("ConceptType Not Found");
+
+            try
+            {
+                _conceptTypeRepository.Remove(existingConceptType);
+                await _unitOfWork.CompleteAsync();
+
+                return new ConceptTypeResponse(existingConceptType);
+            }
+            catch (Exception ex)
+            {
+                return new ConceptTypeResponse($"An error ocurred while deleting ConceptType: {ex.Message}");
+            }
+        }
+
+        public async Task<ConceptTypeResponse> GetByIdAsync(Guid id)
+        {
+            var existingConceptType = await _conceptTypeRepository.FindById(id);
+
+            if (existingConceptType == null)
+                return new ConceptTypeResponse("ConceptType Not Found");
+
+            return new ConceptTypeResponse(existingConceptType);
+        }
+
+        public async Task<IEnumerable<ConceptType>> ListAsync()
+        {
+            return await _conceptTypeRepository.ListAsync();
+        }
+
+        public async Task<ConceptTypeResponse> SaveAsync(ConceptType conceptType)
+        {
+            try
+            {
+                await _conceptTypeRepository.AddAsync(conceptType);
+                await _unitOfWork.CompleteAsync();
+
+                return new ConceptTypeResponse(conceptType);
+            }
+            catch (Exception ex)
+            {
+                return new ConceptTypeResponse($"An error ocurred while saving the conceptType: {ex.Message}");
+            }
+        }
+
+        public async Task<ConceptTypeResponse> UpdateAsync(Guid id, ConceptType conceptType)
+        {
+            var existingConceptType = await _conceptTypeRepository.FindById(id);
+
+            if (existingConceptType == null)
+                return new ConceptTypeResponse("ConceptType Not Found");
+
+            existingConceptType.Description = conceptType.Description;
+            existingConceptType.IsActive = existingConceptType.IsActive;
+            existingConceptType.CreatedOn = existingConceptType.CreatedOn;
+            existingConceptType.ModifiedOn = existingConceptType.ModifiedOn;
+
+            try
+            {
+                _conceptTypeRepository.Update(existingConceptType);
+                await _unitOfWork.CompleteAsync();
+
+                return new ConceptTypeResponse(existingConceptType);
+            }
+            catch (Exception ex)
+            {
+                return new ConceptTypeResponse($"An error ocurred while updating conceptType: {ex.Message}");
+            }
+        }
+    }
+}

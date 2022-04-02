@@ -16,56 +16,7 @@ namespace Ontologia.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserConceptResponse> AssignUserConcept(Guid userId, Guid userConceptId)
-        {
-            try
-            {
-                await _userConceptRepository.AssingUserConceptToUser(userId, userConceptId);
-                await _unitOfWork.CompleteAsync();
-                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
-                return new UserConceptResponse(userConcept);
-            }
-            catch (Exception ex)
-            {
-                return new UserConceptResponse($"An error ocurrend while assigning userConcept to user: {ex.Message}");
-            }
-        }
-
-        public async Task<UserConceptResponse> Delete(Guid userConceptId)
-        {
-            var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
-            if (existingUserConcept == null)
-                return new UserConceptResponse("UserConcept not found");
-            try
-            {
-                _userConceptRepository.Remove(existingUserConcept);
-                await _unitOfWork.CompleteAsync();
-                return new UserConceptResponse(existingUserConcept);
-            }
-            catch (Exception ex)
-            {
-                return new UserConceptResponse($"An error ocurrend while deleting userConcept: {ex.Message}");
-            }
-        }
-
-        public async Task<UserConceptResponse> GetById(Guid userConceptId)
-        {
-            var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
-            if (existingUserConcept == null)
-                return new UserConceptResponse("UserConcept not found");
-            return new UserConceptResponse(existingUserConcept);
-        }
-
-        public async Task<IEnumerable<UserConcept>> ListAsync()
-        {
-            return await _userConceptRepository.ListAsync();
-        }
-
-        public async Task<IEnumerable<UserConcept>> ListByUserId(Guid userId)
-        {
-            return await _userConceptRepository.ListByUserIdAsync(userId);
-        }
-
+        // General Methods
         public async Task<UserConceptResponse> SaveAsync(UserConcept userConcept)
         {
             try
@@ -80,19 +31,17 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserConceptResponse> UnassignUserConcept(Guid userId, Guid userConceptId)
+        public async Task<IEnumerable<UserConcept>> ListAsync()
         {
-            try
-            {
-                await _userConceptRepository.UnassingUserConceptToUser(userId, userConceptId);
-                await _unitOfWork.CompleteAsync();
-                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
-                return new UserConceptResponse(userConcept);
-            }
-            catch (Exception ex)
-            {
-                return new UserConceptResponse($"An error ocurrend while unassigning userConcept to user: {ex.Message}");
-            }
+            return await _userConceptRepository.ListAsync();
+        }
+
+        public async Task<UserConceptResponse> GetById(Guid userConceptId)
+        {
+            var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
+            if (existingUserConcept == null)
+                return new UserConceptResponse("UserConcept not found");
+            return new UserConceptResponse(existingUserConcept);
         }
 
         public async Task<UserConceptResponse> Update(Guid userConceptId, UserConcept userConcept)
@@ -119,5 +68,96 @@ namespace Ontologia.API.Services
                 return new UserConceptResponse($"An error while updating userConcept: {ex.Message}");
             }
         }
+
+        public async Task<UserConceptResponse> Delete(Guid userConceptId)
+        {
+            var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
+            if (existingUserConcept == null)
+                return new UserConceptResponse("UserConcept not found");
+            try
+            {
+                _userConceptRepository.Remove(existingUserConcept);
+                await _unitOfWork.CompleteAsync();
+                return new UserConceptResponse(existingUserConcept);
+            }
+            catch (Exception ex)
+            {
+                return new UserConceptResponse($"An error ocurrend while deleting userConcept: {ex.Message}");
+            }
+        }
+
+
+        // Methods for User Entity
+        public async Task<IEnumerable<UserConcept>> ListByUserId(Guid userId)
+        {
+            return await _userConceptRepository.ListByUserIdAsync(userId);
+        }
+
+        public async Task<UserConceptResponse> AssignUserConceptToUser(Guid userId, Guid userConceptId)
+        {
+            try
+            {
+                await _userConceptRepository.AssingUserConceptToUser(userId, userConceptId);
+                await _unitOfWork.CompleteAsync();
+                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
+                return new UserConceptResponse(userConcept);
+            }
+            catch (Exception ex)
+            {
+                return new UserConceptResponse($"An error ocurrend while assigning userConcept to user: {ex.Message}");
+            }
+        }
+
+        public async Task<UserConceptResponse> UnassignUserConceptToUser(Guid userId, Guid userConceptId)
+        {
+            try
+            {
+                await _userConceptRepository.UnassingUserConceptToUser(userId, userConceptId);
+                await _unitOfWork.CompleteAsync();
+                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
+                return new UserConceptResponse(userConcept);
+            }
+            catch (Exception ex)
+            {
+                return new UserConceptResponse($"An error ocurrend while unassigning userConcept to user: {ex.Message}");
+            }
+        }
+
+        // Methods for ConceptType Entity
+        public async Task<IEnumerable<UserConcept>> ListByConceptTypeId(Guid conceptTypeId)
+        {
+            return await _userConceptRepository.ListByConceptTypeIdAsync(conceptTypeId);
+        }
+
+        public async Task<UserConceptResponse> AssignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId)
+        {
+            try
+            {
+                await _userConceptRepository.AssingUserConceptToConceptType(conceptTypeId, userConceptId);
+                await _unitOfWork.CompleteAsync();
+                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
+                return new UserConceptResponse(userConcept);
+            }
+            catch (Exception ex)
+            {
+                return new UserConceptResponse($"An error ocurrend while assigning userConcept to conceptType: {ex.Message}");
+            }
+        }
+
+        public async Task<UserConceptResponse> UnassignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId)
+        {
+            try
+            {
+                await _userConceptRepository.UnassingUserConceptToConceptType(conceptTypeId, userConceptId);
+                await _unitOfWork.CompleteAsync();
+                UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
+                return new UserConceptResponse(userConcept);
+            }
+            catch (Exception ex)
+            {
+                return new UserConceptResponse($"An error ocurrend while unassigning userConcept to conceptType: {ex.Message}");
+            }
+        }
+
     }
 }
