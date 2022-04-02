@@ -8,10 +8,9 @@ using Ontologia.API.Extensions;
 
 namespace Ontologia.API.Controllers
 {
-
-    [Route("/api/[controller]")]
-    [Produces("application/json")]
     [ApiController]
+    [Produces("application/json")]
+    [Route("/api/[controller]")]
     public class UserConceptsController : ControllerBase
     {
         private readonly IUserConceptService _userConceptService;
@@ -32,7 +31,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "UserConcept Added", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> PostAsync([FromBody] SaveUserConceptResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveUserConceptResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
@@ -56,7 +55,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Returned userConcept", typeof(UserConceptResource))]
         [ProducesResponseType(typeof(UserConceptResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> GetActionAsync(Guid userConceptId)
+        public async Task<IActionResult> GetActionAsync(Guid userConceptId)
         {
             var result = await _userConceptService.GetById(userConceptId);
             if (!result.Success)
@@ -118,7 +117,7 @@ namespace Ontologia.API.Controllers
             return Ok(userConceptResource);
         }
 
-        [HttpDelete("{userConceptId}/userConcepts/{userId}")]
+        [HttpDelete("{userId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Unassign userConcet to user",
             Description = "Unassign userConcet to user by userConceptId and userId",

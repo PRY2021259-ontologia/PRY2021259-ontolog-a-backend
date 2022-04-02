@@ -23,6 +23,7 @@ namespace Ontologia.API.Services
             {
                 await _userConceptRepository.AddAsync(userConcept);
                 await _unitOfWork.CompleteAsync();
+
                 return new UserConceptResponse(userConcept);
             }
             catch (Exception ex)

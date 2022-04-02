@@ -10,7 +10,7 @@
         public DateTime ModifiedOn { get; set; }
 
         // Relationship with User Entity
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public Guid? UserId { get; set; }
+        public User? User { get; set; }
     }
 }

@@ -11,11 +11,11 @@
         public DateTime ModifiedOn { get; set; }
 
         // Relationship with User Entity
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public Guid? UserId { get; set; }
+        public User? User { get; set; }
 
         // Relationship with ConceptType Entity
-        public Guid ConceptTypeId { get; set; }
-        public ConceptType ConceptType { get; set; }
+        public Guid? ConceptTypeId { get; set; }
+        public ConceptType? ConceptType { get; set; }
     }
 }

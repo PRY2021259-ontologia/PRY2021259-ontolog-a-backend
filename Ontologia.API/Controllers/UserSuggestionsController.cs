@@ -31,7 +31,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "UserSuggestion Added", typeof(UserSuggestionResource))]
         [ProducesResponseType(typeof(UserSuggestionResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> PostAsync([FromBody] SaveUserSuggestionResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveUserSuggestionResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());

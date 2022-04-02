@@ -31,7 +31,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "UserHistory Added", typeof(UserHistoryResource))]
         [ProducesResponseType(typeof(UserHistoryResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> PostAsync([FromBody] SaveUserHistoryResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveUserHistoryResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
@@ -55,7 +55,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Returned userHistory", typeof(UserHistoryResource))]
         [ProducesResponseType(typeof(UserHistoryResource), 200)]
         [Produces("application/json")]
-        public async Task<ActionResult> GetActionAsync(Guid userHistoryId)
+        public async Task<IActionResult> GetActionAsync(Guid userHistoryId)
         {
             var result = await _userHistoryService.GetById(userHistoryId);
             if (!result.Success)

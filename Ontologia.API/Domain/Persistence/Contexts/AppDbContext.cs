@@ -36,6 +36,12 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<User>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
+            //// Relationships
+            //builder.Entity<User>()
+            //   .HasMany(u => u.UserConcepts)
+            //   .WithOne(u => u.User)
+            //   .HasForeignKey(u => u.UserId);
+
             // UserConcept Entity
 
             builder.Entity<UserConcept>().ToTable("UserConcepts");
@@ -44,6 +50,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
 
             builder.Entity<UserConcept>().HasKey(p => p.Id);
             builder.Entity<UserConcept>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
             builder.Entity<UserConcept>().Property(p => p.Title).IsRequired();
             builder.Entity<UserConcept>().Property(p => p.Description).IsRequired();
             builder.Entity<UserConcept>().Property(p => p.Url).IsRequired();
@@ -62,14 +69,14 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .WithMany(uc => uc.UserConcepts)
                 .HasForeignKey(uc => uc.UserId);
 
-            builder.Entity<ConceptType>()
-                .HasMany(uc => uc.UserConcepts)
-                .WithOne(uc => uc.ConceptType)
-                .HasForeignKey(uc => uc.ConceptTypeId);
-            builder.Entity<UserConcept>()
-                .HasOne(uc => uc.ConceptType)
-                .WithMany(uc => uc.UserConcepts)
-                .HasForeignKey(uc => uc.ConceptTypeId);
+            ////builder.Entity<ConceptType>()
+            ////    .HasMany(uc => uc.UserConcepts)
+            ////    .WithOne(uc => uc.ConceptType)
+            ////    .HasForeignKey(uc => uc.ConceptTypeId);
+            //builder.Entity<UserConcept>()
+            //    .HasOne(uc => uc.ConceptType)
+            //    .WithMany(uc => uc.UserConcepts)
+            //    .HasForeignKey(uc => uc.ConceptTypeId);
 
             // UserSuggestion Entity
 
@@ -79,6 +86,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
 
             builder.Entity<UserSuggestion>().HasKey(p => p.Id);
             builder.Entity<UserSuggestion>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
             builder.Entity<UserSuggestion>().Property(p => p.Comment).IsRequired();
             builder.Entity<UserSuggestion>().Property(p => p.OptionalEmail).IsRequired();
             builder.Entity<UserSuggestion>().Property(p => p.IsActive).IsRequired();
@@ -104,6 +112,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
 
             builder.Entity<UserHistory>().HasKey(p => p.Id);
             builder.Entity<UserHistory>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
             builder.Entity<UserHistory>().Property(p => p.Url).IsRequired();
             builder.Entity<UserHistory>().Property(p => p.TextSearched).IsRequired();
             builder.Entity<UserHistory>().Property(p => p.IsActive).IsRequired();
@@ -134,6 +143,11 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<ConceptType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<ConceptType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ConceptType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            //builder.Entity<ConceptType>()
+            //    .HasMany(c => c.UserConcepts)
+            //    .WithOne(c => c.ConceptType)
+            //    .HasForeignKey(c => c.ConceptTypeId);
 
             // Naming Conventions Policy
 
