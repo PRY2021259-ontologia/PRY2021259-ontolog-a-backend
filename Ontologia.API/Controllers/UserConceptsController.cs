@@ -110,7 +110,7 @@ namespace Ontologia.API.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> AssignUserConceptToUser(Guid userId, Guid userConceptId)
         {
-            var result = await _userConceptService.AssignUserConcept(userId, userConceptId);
+            var result = await _userConceptService.AssignUserConceptToUser(userId, userConceptId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var userConcept = await _userConceptService.GetById(result.Resource.Id);
@@ -129,7 +129,7 @@ namespace Ontologia.API.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> UnassignUserConceptToUser(Guid userId, Guid userConceptId)
         {
-            var result = await _userConceptService.UnassignUserConcept(userId, userConceptId);
+            var result = await _userConceptService.UnassignUserConceptToUser(userId, userConceptId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var userConcept = await _userConceptService.GetById(result.Resource.Id);
