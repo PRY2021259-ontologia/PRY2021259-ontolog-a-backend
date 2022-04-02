@@ -4,13 +4,21 @@ namespace Ontologia.API.Domain.Persistence.Repositories
 {
     public interface IUserConceptRepository
     {
-        Task<IEnumerable<UserConcept>> ListAsync();
+        // General Methods
         Task AddAsync(UserConcept userConcept);
-        Task<IEnumerable<UserConcept>> ListByUserIdAsync(Guid userId);
+        Task<IEnumerable<UserConcept>> ListAsync();
         Task<UserConcept> GetById(Guid userConceptId);
-        Task AssingUserConcept(Guid userId, Guid userConceptId);
-        Task UnassingUserConcept(Guid userId, Guid userConceptId);
         void Update(UserConcept userConcept);
         void Remove(UserConcept userConcept);
+
+        // Methods for User Entity
+        Task<IEnumerable<UserConcept>> ListByUserIdAsync(Guid userId);
+        Task AssingUserConceptToUser(Guid userId, Guid userConceptId);
+        Task UnassingUserConceptToUser(Guid userId, Guid userConceptId);
+
+        // Methods for ConceptType Entity
+        Task<IEnumerable<UserConcept>> ListByConceptTypeIdAsync(Guid conceptTypeId);
+        Task AssingUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
+        Task UnassingUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
     }
 }

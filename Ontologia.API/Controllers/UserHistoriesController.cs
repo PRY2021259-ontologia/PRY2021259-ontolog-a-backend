@@ -88,7 +88,7 @@ namespace Ontologia.API.Controllers
            Description = "Get All userHistorys In the Data Base by id",
            OperationId = "GetAllUserHistorys"
         )]
-        [SwaggerResponse(200, "Returned All UserHistorys", typeof(IEnumerable<UserHistoryResource>))]
+        [SwaggerResponse(200, "Returned All UserHistories", typeof(IEnumerable<UserHistoryResource>))]
         [ProducesResponseType(typeof(IEnumerable<UserHistoryResource>), 200)]
         [Produces("application/json")]
         public async Task<IEnumerable<UserHistoryResource>> GetAllAsync()

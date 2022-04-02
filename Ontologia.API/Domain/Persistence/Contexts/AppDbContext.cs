@@ -10,6 +10,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<UserConcept> UserConcepts { get; set; }
         public DbSet<UserSuggestion> UserSuggestions { get; set; }
         public DbSet<UserHistory> UserHistories { get; set; }
+        public DbSet<ConceptType> ConceptTypes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

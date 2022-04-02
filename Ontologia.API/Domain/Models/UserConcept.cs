@@ -13,5 +13,9 @@
         // Relationship with User Entity
         public Guid UserId { get; set; }
         public User User { get; set; }
+
+        // Relationship with ConceptType Entity
+        public Guid ConceptTypeId { get; set; }
+        public ConceptType ConceptType { get; set; }
     }
 }

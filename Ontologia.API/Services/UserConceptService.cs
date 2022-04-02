@@ -20,7 +20,7 @@ namespace Ontologia.API.Services
         {
             try
             {
-                await _userConceptRepository.AssingUserConcept(userId, userConceptId);
+                await _userConceptRepository.AssingUserConceptToUser(userId, userConceptId);
                 await _unitOfWork.CompleteAsync();
                 UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
                 return new UserConceptResponse(userConcept);
@@ -84,7 +84,7 @@ namespace Ontologia.API.Services
         {
             try
             {
-                await _userConceptRepository.UnassingUserConcept(userId, userConceptId);
+                await _userConceptRepository.UnassingUserConceptToUser(userId, userConceptId);
                 await _unitOfWork.CompleteAsync();
                 UserConcept userConcept = await _userConceptRepository.GetById(userConceptId);
                 return new UserConceptResponse(userConcept);
