@@ -150,6 +150,20 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<ConceptType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ConceptType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
+            // UserType Entity
+
+            builder.Entity<UserType>().ToTable("UserTypes");
+
+            // Constraints
+
+            builder.Entity<UserType>().HasKey(p => p.Id);
+            builder.Entity<UserType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<UserType>().Property(p => p.Description).IsRequired();
+            builder.Entity<UserType>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<UserType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
             // Naming Conventions Policy
 
             builder.ApplySnakeCaseNamingConvention();

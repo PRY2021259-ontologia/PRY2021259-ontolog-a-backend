@@ -22,6 +22,7 @@ namespace Ontologia.API.Controllers
             _mapper = mapper;
         }
 
+        // General HTTP Methods
         [HttpGet]
         [SwaggerOperation(
             Summary = "List all users",
@@ -130,6 +131,46 @@ namespace Ontologia.API.Controllers
 
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
 
+            return Ok(userResource);
+        }
+
+        // HTTP Methods for UserType Entity
+        [HttpPost]
+        [Route("userTypes/{userTypeId}/users/{userId}")]
+        [SwaggerOperation(
+            Summary = "Assign user to userType",
+            Description = "Assign user to userType by userId and userTypeId",
+            OperationId = "AssignUser To UserType"
+        )]
+        [SwaggerResponse(200, "user to userType Assigned", typeof(UserResource))]
+        [ProducesResponseType(typeof(UserResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUserToUserType(Guid userTypeId, Guid userId)
+        {
+            var result = await _userService.AssignUserToUserType(userTypeId, userId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var user = await _userService.GetByIdAsync(result.Resource.Id);
+            var userResource = _mapper.Map<User, UserResource>(user.Resource);
+            return Ok(userResource);
+        }
+
+        [HttpDelete("userTypes/{userTypeId}/users/{userId}")]
+        [SwaggerOperation(
+            Summary = "Unassign user to userType",
+            Description = "Unassign user to userType by userId and userTypeId",
+            OperationId = "UnassignUser To UserType"
+        )]
+        [SwaggerResponse(200, "user to userType Unassigned", typeof(UserResource))]
+        [ProducesResponseType(typeof(UserResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> UnassignUserToUserType(Guid userTypeId, Guid userId)
+        {
+            var result = await _userService.UnassignUserToUserType(userTypeId, userId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var user = await _userService.GetByIdAsync(result.Resource.Id);
+            var userResource = _mapper.Map<User, UserResource>(user.Resource);
             return Ok(userResource);
         }
 

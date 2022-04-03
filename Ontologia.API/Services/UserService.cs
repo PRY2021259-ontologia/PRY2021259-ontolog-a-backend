@@ -16,6 +16,13 @@ namespace Ontologia.API.Services
             _unitOfWork = unitOfWork;
         }
 
+        // General Methods
+
+        public async Task<IEnumerable<User>> ListAsync()
+        {
+            return await _userRepository.ListAsync();
+        }
+
         public async Task<UserResponse> DeleteAsync(Guid id)
         {
             var existingUser = await _userRepository.FindById(id);
@@ -45,11 +52,6 @@ namespace Ontologia.API.Services
                 return new UserResponse("User Not Found");
 
             return new UserResponse(existingUser);
-        }
-
-        public async Task<IEnumerable<User>> ListAsync()
-        {
-            return await _userRepository.ListAsync();
         }
 
         public async Task<UserResponse> SaveAsync(User user)
@@ -94,5 +96,42 @@ namespace Ontologia.API.Services
                 return new UserResponse($"An error ocurred while updating user: {ex.Message}");
             }
         }
+
+        // Methods for UserType Entity
+        public async Task<IEnumerable<User>> ListByUserTypeId(Guid userTypeId)
+        {
+            return await _userRepository.ListByUserTypeIdAsync(userTypeId);
+        }
+
+        public async Task<UserResponse> AssignUserToUserType(Guid userTypeId, Guid userId)
+        {
+            try
+            {
+                await _userRepository.AssingUserToUserType(userTypeId, userId);
+                await _unitOfWork.CompleteAsync();
+                User user = await _userRepository.FindById(userId);
+                return new UserResponse(user);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"An error ocurrend while assigning user to userType: {ex.Message}");
+            }
+        }
+
+        public async Task<UserResponse> UnassignUserToUserType(Guid userTypeId, Guid userId)
+        {
+            try
+            {
+                await _userRepository.UnassingUserToUserType(userTypeId, userId);
+                await _unitOfWork.CompleteAsync();
+                User user = await _userRepository.FindById(userId);
+                return new UserResponse(user);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"An error ocurrend while unassigning user to userType: {ex.Message}");
+            }
+        }
+
     }
 }

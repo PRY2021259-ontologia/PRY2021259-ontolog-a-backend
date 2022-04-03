@@ -11,10 +11,13 @@ namespace Ontologia.API.Persistence.Repositories
         {
         }
 
+        // General Methods
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
         }
+
+       
 
         public async Task<User> FindById(Guid id)
         {
@@ -35,5 +38,39 @@ namespace Ontologia.API.Persistence.Repositories
         {
             _context.Users.Update(user);
         }
+
+        // Methods for UserType Entity
+
+        public async Task<IEnumerable<User>> ListByUserTypeIdAsync(Guid userTypeId)
+        {
+            return await _context.Users.Where(u => u.UserTypeId == userTypeId).ToListAsync();
+        }
+
+
+        public async Task AssingUserToUserType(Guid userTypeId, Guid userId)
+        {
+            UserType userType = await _context.UserTypes.FindAsync(userTypeId);
+            User user = await _context.Users.FindAsync(userId);
+
+            if (userType != null && user != null)
+            {
+                user.UserTypeId = userTypeId;
+                Update(user);
+            }
+        }
+
+        public async Task UnassingUserToUserType(Guid userTypeId, Guid userId)
+        {
+            UserType userType = await _context.UserTypes.FindAsync(userTypeId);
+            User user = await _context.Users.FindAsync(userId);
+            var newId = Guid.Empty;
+
+            if (userType != null && user != null)
+            {
+                user.UserTypeId = newId;
+                Update(user);
+            }
+        }
+
     }
 }
