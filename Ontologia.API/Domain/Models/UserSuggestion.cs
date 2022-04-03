@@ -12,5 +12,9 @@
         // Relationship with User Entity
         public Guid? UserId { get; set; }
         public User? User { get; set; }
+
+        // Relationship with SuggestionType Entity
+        public Guid? SuggestionTypeId { get; set; }
+        public SuggestionType? SuggestionType{ get; set; }
     }
 }
