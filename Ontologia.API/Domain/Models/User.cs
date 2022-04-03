@@ -10,6 +10,10 @@
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
 
+        // Relationship with UserType Entity
+        public Guid? UserTypeId { get; set; }
+        public UserType? UserType { get; set; }
+
         // Relationship with UserConcept | UseSuggestion | UserHistory
         public IList<UserConcept> UserConcepts { get; set; } = new List<UserConcept>();
         public IList<UserSuggestion> UserSuggestions { get; set; } = new List<UserSuggestion>();

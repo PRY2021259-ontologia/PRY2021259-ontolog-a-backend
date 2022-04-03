@@ -11,6 +11,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<UserSuggestion> UserSuggestions { get; set; }
         public DbSet<UserHistory> UserHistories { get; set; }
         public DbSet<ConceptType> ConceptTypes { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -36,11 +37,16 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<User>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
-            //// Relationships
-            //builder.Entity<User>()
-            //   .HasMany(u => u.UserConcepts)
-            //   .WithOne(u => u.User)
-            //   .HasForeignKey(u => u.UserId);
+            // Relationships
+            builder.Entity<UserType>()
+                .HasMany(ut => ut.Users)
+                .WithOne(ut => ut.UserType)
+                .HasForeignKey(ut => ut.UserTypeId);
+            builder.Entity<User>()
+                .HasOne(ut => ut.UserType)
+                .WithMany(ut => ut.Users)
+                .HasForeignKey(ut => ut.UserTypeId);
+
 
             // UserConcept Entity
 

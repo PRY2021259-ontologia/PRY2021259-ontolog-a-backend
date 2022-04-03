@@ -12,7 +12,8 @@ namespace Ontologia.API.Mapping
             CreateMap<SaveUserConceptResource, UserConcept>();
             CreateMap<SaveUserSuggestionResource, UserSuggestion>();
             CreateMap<SaveUserHistoryResource, UserHistory>();
-            CreateMap<SaveConceptTypeResource, ConceptType>();
+            CreateMap<SaveConceptTypeResource, ConceptTypeResource>();
+            CreateMap<SaveUserTypeResource, UserTypeResource>();
         }
     }
 }

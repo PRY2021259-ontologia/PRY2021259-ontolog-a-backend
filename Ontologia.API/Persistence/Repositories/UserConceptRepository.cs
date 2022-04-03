@@ -61,10 +61,11 @@ namespace Ontologia.API.Persistence.Repositories
         {
             User user = await _context.Users.FindAsync(userId);
             UserConcept userConcept = await _context.UserConcepts.FindAsync(userConceptId);
+            var newId = Guid.Empty;
 
             if (user != null && userConcept != null)
             {
-                userConcept.UserId = Guid.Empty;
+                userConcept.UserId = newId;
                 Update(userConcept);
             }
         }
@@ -92,10 +93,11 @@ namespace Ontologia.API.Persistence.Repositories
         {
             ConceptType conceptType = await _context.ConceptTypes.FindAsync(conceptTypeId);
             UserConcept userConcept = await _context.UserConcepts.FindAsync(userConceptId);
+            var newId = Guid.Empty;
 
             if (conceptType != null && userConcept != null)
             {
-                userConcept.ConceptTypeId = Guid.Empty;
+                userConcept.ConceptTypeId = newId;
                 Update(userConcept);
             }
         }
