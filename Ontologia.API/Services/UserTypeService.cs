@@ -51,14 +51,14 @@ namespace Ontologia.API.Services
             return await _userTypeRepository.ListAsync();
         }
 
-        public async Task<UserTypeResponse> SaveAsync(UserType UserType)
+        public async Task<UserTypeResponse> SaveAsync(UserType userType)
         {
             try
             {
-                await _userTypeRepository.AddAsync(UserType);
+                await _userTypeRepository.AddAsync(userType);
                 await _unitOfWork.CompleteAsync();
 
-                return new UserTypeResponse(UserType);
+                return new UserTypeResponse(userType);
             }
             catch (Exception ex)
             {
@@ -66,17 +66,17 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<UserTypeResponse> UpdateAsync(Guid id, UserType UserType)
+        public async Task<UserTypeResponse> UpdateAsync(Guid id, UserType userType)
         {
             var existingUserType = await _userTypeRepository.FindById(id);
 
             if (existingUserType == null)
                 return new UserTypeResponse("UserType Not Found");
 
-            existingUserType.Description = UserType.Description;
-            existingUserType.IsActive = existingUserType.IsActive;
-            existingUserType.CreatedOn = existingUserType.CreatedOn;
-            existingUserType.ModifiedOn = existingUserType.ModifiedOn;
+            existingUserType.Description = userType.Description;
+            existingUserType.IsActive = userType.IsActive;
+            existingUserType.CreatedOn = userType.CreatedOn;
+            existingUserType.ModifiedOn = userType.ModifiedOn;
 
             try
             {

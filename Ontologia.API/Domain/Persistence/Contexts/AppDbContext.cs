@@ -111,6 +111,15 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSuggestions)
                 .HasForeignKey(us => us.UserId);
 
+            builder.Entity<SuggestionType>()
+                .HasMany(us => us.UserSuggestions)
+                .WithOne(us => us.SuggestionType)
+                .HasForeignKey(us => us.SuggestionTypeId);
+            builder.Entity<UserSuggestion>()
+                .HasOne(us => us.SuggestionType)
+                .WithMany(us => us.UserSuggestions)
+                .HasForeignKey(us => us.SuggestionTypeId);
+
             // UserHistory Entity
 
             builder.Entity<UserHistory>().ToTable("UserHistories");
@@ -164,6 +173,20 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<UserType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<UserType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<UserType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // SuggestionType Entity
+
+            builder.Entity<SuggestionType>().ToTable("SuggestionTypes");
+
+            // Constraints
+
+            builder.Entity<SuggestionType>().HasKey(p => p.Id);
+            builder.Entity<SuggestionType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<SuggestionType>().Property(p => p.Description).IsRequired();
+            builder.Entity<SuggestionType>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<SuggestionType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SuggestionType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
             // Naming Conventions Policy
 
