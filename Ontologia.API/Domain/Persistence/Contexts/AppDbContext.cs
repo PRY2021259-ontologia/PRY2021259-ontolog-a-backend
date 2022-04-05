@@ -13,6 +13,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<ConceptType> ConceptTypes { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<SuggestionType> SuggestionTypes { get; set; }
+        public DbSet<CategoryDisease> CategoryDiseases { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -187,6 +188,20 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<SuggestionType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<SuggestionType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<SuggestionType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // CategoryDisease Entity
+
+            builder.Entity<CategoryDisease>().ToTable("CategoryDiseases");
+
+            // Constraints
+
+            builder.Entity<CategoryDisease>().HasKey(p => p.Id);
+            builder.Entity<CategoryDisease>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<CategoryDisease>().Property(p => p.Description).IsRequired();
+            builder.Entity<CategoryDisease>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<CategoryDisease>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<CategoryDisease>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
             // Naming Conventions Policy
 

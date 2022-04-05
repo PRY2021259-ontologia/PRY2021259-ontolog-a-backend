@@ -22,6 +22,8 @@ namespace Ontologia.API.Controllers
             _mapper = mapper;
         }
 
+        // General HTTP Methods
+
         [HttpPost]
         [SwaggerOperation(
             Summary = "Add new userSugegestion",
@@ -98,6 +100,8 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
+        // HTTP Methods for User Entity
+
         [HttpPost("{userId}/userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Assign userSuggestion to user",
@@ -129,6 +133,46 @@ namespace Ontologia.API.Controllers
         public async Task<IActionResult> UnassignUserSuggestionToUser(Guid userId, Guid userSuggestionId)
         {
             var result = await _userSuggestionService.UnassignUserSuggestion(userId, userSuggestionId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var userSuggestion = await _userSuggestionService.GetById(result.Resource.Id);
+            var userSuggestionResource = _mapper.Map<UserSuggestion, UserSuggestionResource>(userSuggestion.Resource);
+            return Ok(userSuggestionResource);
+        }
+
+        // HTTP Methods for SuggestionType Entity
+
+        [HttpPost("suggestionTypes/{suggestionTypeId}/userSuggestions/{userSuggestionId}")]
+        [SwaggerOperation(
+            Summary = "Assign userSuggestion to SuggestionType",
+            Description = "Assign userSuggestion to SuggestionType by userSuggestionId and SuggestionTypeId",
+            OperationId = "AssignUserSuggestion to SuggestionType"
+        )]
+        [SwaggerResponse(200, "userConcet to user Assigned", typeof(UserSuggestionResource))]
+        [ProducesResponseType(typeof(UserSuggestionResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUserSuggestionToSuggestionType(Guid suggestionTypeId, Guid userSuggestionId)
+        {
+            var result = await _userSuggestionService.AssignUserSuggestionToSuggestionType(suggestionTypeId, userSuggestionId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var userSuggestion = await _userSuggestionService.GetById(result.Resource.Id);
+            var userSuggestionResource = _mapper.Map<UserSuggestion, UserSuggestionResource>(userSuggestion.Resource);
+            return Ok(userSuggestionResource);
+        }
+
+        [HttpDelete("suggestionTypes/{suggestionTypeId}/userSuggestions/{userSuggestionId}")]
+        [SwaggerOperation(
+            Summary = "Unassign userSuggestion to SuggestionType",
+            Description = "Unassign userSuggestion to SuggestionType by userSuggestionId and SuggestionTypeId",
+            OperationId = "UnassignUserSuggestion to SuggestionType"
+        )]
+        [SwaggerResponse(200, "userConcet to user Unassigned", typeof(UserSuggestionResource))]
+        [ProducesResponseType(typeof(UserSuggestionResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> UnassignUserSuggestionToSuggestionType(Guid suggestionTypeId, Guid userSuggestionId)
+        {
+            var result = await _userSuggestionService.UnassignUserSuggestionToSuggestionType(suggestionTypeId, userSuggestionId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var userSuggestion = await _userSuggestionService.GetById(result.Resource.Id);
