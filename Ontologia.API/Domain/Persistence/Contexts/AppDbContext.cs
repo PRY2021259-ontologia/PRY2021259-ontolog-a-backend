@@ -14,6 +14,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<SuggestionType> SuggestionTypes { get; set; }
         public DbSet<CategoryDisease> CategoryDiseases { get; set; }
+        public DbSet<PlantDisease> PlantDiseases { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -202,6 +203,32 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<CategoryDisease>().Property(p => p.IsActive).IsRequired();
             builder.Entity<CategoryDisease>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<CategoryDisease>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // PlantDisease Entity
+
+            builder.Entity<PlantDisease>().ToTable("PlantDiseases");
+
+            // Constraints
+
+            builder.Entity<PlantDisease>().HasKey(p => p.Id);
+            builder.Entity<PlantDisease>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<PlantDisease>().Property(p => p.Name).IsRequired();
+            builder.Entity<PlantDisease>().Property(p => p.Description).IsRequired();
+            builder.Entity<PlantDisease>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<PlantDisease>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<PlantDisease>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // Relationships
+
+            builder.Entity<CategoryDisease>()
+                .HasMany(pd => pd.PlantDiseases)
+                .WithOne(pd => pd.CategoryDisease)
+                .HasForeignKey(pd => pd.CategoryDiseaseId);
+            builder.Entity<PlantDisease>()
+                .HasOne(pd => pd.CategoryDisease)
+                .WithMany(pd => pd.PlantDiseases)
+                .HasForeignKey(pd => pd.CategoryDiseaseId);
 
             // Naming Conventions Policy
 
