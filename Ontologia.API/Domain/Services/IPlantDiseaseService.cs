@@ -1,7 +1,7 @@
 ﻿using Ontologia.API.Domain.Models;
 using Ontologia.API.Domain.Services.Communications;
 
-namespace Ontologia.API.Domain.Persistence
+namespace Ontologia.API.Domain.Services
 {
     public interface IPlantDiseaseService
     {
@@ -13,7 +13,7 @@ namespace Ontologia.API.Domain.Persistence
         Task<PlantDiseaseResponse> Delete(Guid plantDiseaseId);
 
         // Methods for CategoryDisease Entity
-        Task<IEnumerable<PlantDisease>> ListByUserId(Guid categoryDiseaseId);
+        Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId);
         Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
         Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
     }

@@ -16,6 +16,7 @@ namespace Ontologia.API.Mapping
             CreateMap<UserType, UserTypeResource>();
             CreateMap<SuggestionType, SuggestionTypeResource>();
             CreateMap<CategoryDisease, CategoryDiseaseResource>();
+            CreateMap<PlantDisease, PlantDiseaseResource>();
         }
     }
 }
