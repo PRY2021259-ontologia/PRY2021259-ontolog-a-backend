@@ -59,4 +59,4 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23996684351046E48F984577AD823112 }}
           run: ls
-          package: .
+          package: .net-app
