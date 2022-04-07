@@ -58,4 +58,5 @@ jobs:
           app-name: 'backend-ontologia'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23996684351046E48F984577AD823112 }}
-          package: ${{env.DOTNET_ROOT}}/myapp
+          run: ls
+          package: .
