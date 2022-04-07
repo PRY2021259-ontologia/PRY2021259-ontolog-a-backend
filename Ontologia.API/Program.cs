@@ -11,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
     .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
-    .AddCommandLine(args)
-    .Build();
+    .AddCommandLine(args);
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -77,13 +77,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<AppDbContext>())
 {
-    context.Database.EnsureCreated();
+    context?.Database.EnsureCreated();
 }
 
+
+// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 app.UseSwagger();
 app.UseSwaggerUI();
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
