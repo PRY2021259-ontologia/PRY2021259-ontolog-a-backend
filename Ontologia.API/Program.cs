@@ -8,6 +8,11 @@ using Ontologia.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+    .AddCommandLine(args)
+    .Build();
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -24,7 +29,7 @@ builder.Services.AddSwaggerGen();
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("MY_SQL_CONNECTION_STRING"));
 });
 
 

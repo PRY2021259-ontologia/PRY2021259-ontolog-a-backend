@@ -403,3 +403,5 @@ FodyWeavers.xsd
 Ontologia.API/obj/*
 Ontologia.API/.vs/*
 Ontologia.API/bin/*
+
+appsettings.*.json
