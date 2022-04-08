@@ -64,6 +64,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 //startup automapper 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddEndpointsApiExplorer();
+
 // documentation setup
 builder.Services.AddSwaggerGen(options =>
 {
