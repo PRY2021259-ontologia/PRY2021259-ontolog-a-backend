@@ -10,9 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
-    .AddCommandLine(args)
-    .Build();
+    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddControllers();
