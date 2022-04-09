@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen();
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("LOCAL_DATABASE"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("MY_SQL_CONNECTION_STRING"));
 });
 
 
