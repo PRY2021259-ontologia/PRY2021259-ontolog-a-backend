@@ -8,9 +8,9 @@ using Ontologia.API.Extensions;
 
 namespace Ontologia.API.Controllers
 {
-    [Route("/api/[controller]")]
-    [Produces("application/json")]
     [ApiController]
+    [Produces("application/json")]
+    [Route("/api/")]
     public class UserSuggestionsController : ControllerBase
     {
         private readonly IUserSuggestionService _userSuggestionService;
@@ -24,7 +24,7 @@ namespace Ontologia.API.Controllers
 
         // General HTTP Methods
 
-        [HttpPost]
+        [HttpPost("userSuggestions")]
         [SwaggerOperation(
             Summary = "Add new userSugegestion",
             Description = "Add new userSuggestion with initial data",
@@ -48,7 +48,7 @@ namespace Ontologia.API.Controllers
             return Ok(userSuggestionResource);
         }
 
-        [HttpGet("{userSuggestionId}")]
+        [HttpGet("userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Get userSuggestion",
             Description = "Get userSuggestion In the Data Base by id",
@@ -66,7 +66,7 @@ namespace Ontologia.API.Controllers
             return Ok(userSuggestionResource);
         }
 
-        [HttpDelete("{userSuggestionId}")]
+        [HttpDelete("userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Delete userSuggestion",
             Description = "Delete UserSuggestion In the Data Base by id",
@@ -84,7 +84,7 @@ namespace Ontologia.API.Controllers
             return Ok(userSuggestionResource);
         }
 
-        [HttpGet]
+        [HttpGet("userSuggestions")]
         [SwaggerOperation(
            Summary = "Get All userSuggestions",
            Description = "Get All userSuggestions In the Data Base by id",
@@ -102,7 +102,7 @@ namespace Ontologia.API.Controllers
 
         // HTTP Methods for User Entity
 
-        [HttpPost("{userId}/userSuggestions/{userSuggestionId}")]
+        [HttpPost("users/{userId}/userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Assign userSuggestion to user",
             Description = "Assign userSuggestion to user by userSuggestionId and userId",
@@ -121,7 +121,7 @@ namespace Ontologia.API.Controllers
             return Ok(userSuggestionResource);
         }
 
-        [HttpDelete("{userId}/userSuggestions/{userSuggestionId}")]
+        [HttpDelete("users/{userId}/userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Unassign userSuggestion to user",
             Description = "Unassign userSuggestion to user by userSuggestionId and userId",
