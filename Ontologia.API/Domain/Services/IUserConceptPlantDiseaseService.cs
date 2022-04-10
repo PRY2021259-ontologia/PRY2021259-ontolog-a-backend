@@ -1,4 +1,5 @@
 ﻿using Ontologia.API.Domain.Models;
+using Ontologia.API.Domain.Services.Communications;
 
 namespace Ontologia.API.Domain.Services
 {
@@ -8,7 +9,7 @@ namespace Ontologia.API.Domain.Services
         Task<IEnumerable<UserConceptPlantDisease>> ListByUserConceptIdAsync(Guid userConceptId);
         Task<IEnumerable<UserConceptPlantDisease>> ListByPlantDiseaseIdAsync(Guid plantDiseaseId);
         Task<IEnumerable<UserConceptPlantDisease>> ListByUserConceptIdAndPlantDiseaseIdAsync(Guid userConceptId, Guid plantDiseaseId);
-        Task<UserConceptPlantDisease> AssignUserConceptPlantDiseaseAsync(Guid userConceptId, Guid plantDiseaseId);
-        Task<UserConceptPlantDisease> UnassignUserConceptPlantDiseaseAsync(Guid userConceptId, Guid plantDiseaseId);
+        Task<UserConceptPlantDiseaseResponse> AssignUserConceptPlantDiseaseAsync(Guid userConceptId, Guid plantDiseaseId);
+        Task<UserConceptPlantDiseaseResponse> UnassignUserConceptPlantDiseaseAsync(Guid userConceptId, Guid plantDiseaseId);
     }
 }
