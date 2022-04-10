@@ -65,5 +65,47 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
+        [HttpPost("{plantDiseaseId}")]
+        [SwaggerOperation(
+        Summary = "Assign userConcept to PlantDisease",
+        Description = "Assign userConcept to PlantDisease",
+        OperationId = "AssignUserConceptToPlantDisease"
+        )]
+        [SwaggerResponse(200, "UserConcept Assigned", typeof(UserConceptResource))]
+        [ProducesResponseType(typeof(UserConceptResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUserConceptPlantDisease(Guid userConceptId, Guid plantDiseaseId)
+        {
+            var result = await _userConceptPlantDiseaseService.AssignUserConceptPlantDiseaseAsync(userConceptId, plantDiseaseId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var userConceptResource = _mapper.Map<UserConcept, UserConceptResource>(result.Resource.UserConcept);
+
+            return Ok(userConceptResource);
+        }
+
+        [HttpDelete("{plantDiseaseId}")]
+        [SwaggerOperation(
+        Summary = "Unassign userConcept to PlantDisease",
+        Description = "Unassign userConcept to PlantDisease",
+        OperationId = "UnssignUserConceptToPlantDisease"
+        )]
+        [SwaggerResponse(200, "UserConcept Unssigned", typeof(UserConceptResource))]
+        [ProducesResponseType(typeof(UserConceptResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> UnassignUserConceptPlantDisease(Guid userConceptId, Guid plantDiseaseId)
+        {
+            var result = await _userConceptPlantDiseaseService.UnassignUserConceptPlantDiseaseAsync(userConceptId, plantDiseaseId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var userConcept = await _userConceptService.GetById(result.Resource.UserConceptId);
+
+            var userConceptResource = _mapper.Map<UserConcept, UserConceptResource>(userConcept.Resource);
+            return Ok(userConceptResource);
+        }
     }
 }
