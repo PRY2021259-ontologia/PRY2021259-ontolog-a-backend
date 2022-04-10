@@ -7,11 +7,11 @@ namespace Ontologia.API.Domain.Persistence.Repositories
         Task<IEnumerable<UserConceptPlantDisease>> ListAsync();
         Task<IEnumerable<UserConceptPlantDisease>> ListByUserConceptIdAsync(Guid userConceptId);
         Task<IEnumerable<UserConceptPlantDisease>> ListByPlantDiseaseIdAsync(Guid plantDiseaseId);
-        Task<IEnumerable<UserConceptPlantDisease>> ListByUserIdAndTutorIdAsync(Guid userId, Guid tutorId);
-        Task<UserSession> FindByUserIdAndSessionId(Guid userId, Guid sessionId);
-        Task AddAsync(UserSession userSession);
-        void Remove(UserSession userSession);
-        Task AssignUserSession(Guid userId, Guid sessionId);
-        Task UnassignUserSession(Guid userId, Guid sessionId);
+        Task<IEnumerable<UserConceptPlantDisease>> ListByUserConceptIdAndPlantDiseaseIdAsync(Guid userConceptId, Guid plantDiseaseId);
+        Task<UserConceptPlantDisease> FindByUserConceptIdAndPlantDiseaseId(Guid userId, Guid plantDiseaseId);
+        Task AddAsync(UserConceptPlantDisease userConceptPlantDisease);
+        void Remove(UserConceptPlantDisease userConceptPlantDisease);
+        Task AssignUserConceptPlantDisease(Guid userConceptId, Guid plantDiseaseId);
+        Task UnassignUserConceptPlantDisease(Guid userConceptId, Guid plantDiseaseId);
     }
 }
