@@ -11,6 +11,7 @@ namespace Ontologia.API.Domain.Persistence.Repositories
         void Update(User user);
         void Remove(User user);
 
+
         // Methods for UserType Entity
         Task<IEnumerable<User>> ListByUserTypeIdAsync(Guid userTypeId);
         Task AssingUserToUserType(Guid userTypeId, Guid userId);
