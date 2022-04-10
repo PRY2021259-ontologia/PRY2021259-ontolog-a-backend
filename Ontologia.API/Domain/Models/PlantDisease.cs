@@ -13,5 +13,7 @@
         public Guid? CategoryDiseaseId { get; set; }
         public CategoryDisease? CategoryDisease { get; set; }
 
+        // Relationship with UserConceptPlantDisease Entity
+        public List<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
     }
 }

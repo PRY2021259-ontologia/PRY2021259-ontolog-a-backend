@@ -15,6 +15,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<SuggestionType> SuggestionTypes { get; set; }
         public DbSet<CategoryDisease> CategoryDiseases { get; set; }
         public DbSet<PlantDisease> PlantDiseases { get; set; }
+        public DbSet<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -229,6 +230,26 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .HasOne(pd => pd.CategoryDisease)
                 .WithMany(pd => pd.PlantDiseases)
                 .HasForeignKey(pd => pd.CategoryDiseaseId);
+
+            // UserConceptPlantDisease Entity
+
+            builder.Entity<UserConceptPlantDisease>().ToTable("UserConceptPlantDiseases");
+
+            // Constraints
+
+            builder.Entity<UserConceptPlantDisease>().HasKey(p => new { p.UserConceptId, p.PlantDiseaseId });
+
+            // RelastionShips
+
+            builder.Entity<UserConceptPlantDisease>()
+                .HasOne(pt => pt.UserConcept)
+                .WithMany(p => p.UserConceptPlantDiseases)
+                .HasForeignKey(pt => pt.UserConceptId);
+
+            builder.Entity<UserConceptPlantDisease>()
+                .HasOne(pt => pt.PlantDisease)
+                .WithMany(t => t.UserConceptPlantDiseases)
+                .HasForeignKey(pt => pt.PlantDiseaseId);
 
             // Naming Conventions Policy
 

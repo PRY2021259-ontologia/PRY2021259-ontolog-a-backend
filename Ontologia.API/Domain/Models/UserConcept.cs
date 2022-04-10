@@ -17,5 +17,8 @@
         // Relationship with ConceptType Entity
         public Guid? ConceptTypeId { get; set; }
         public ConceptType? ConceptType { get; set; }
+
+        // Relationship with UserConceptPlantDisease Entity
+        public List<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
     }
 }
