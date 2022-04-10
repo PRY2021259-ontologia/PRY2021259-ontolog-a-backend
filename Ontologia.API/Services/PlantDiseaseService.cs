@@ -7,12 +7,14 @@ namespace Ontologia.API.Services
 {
     public class PlantDiseaseService : IPlantDiseaseService
     {
-        public readonly IPlantDiseaseRepository _plantDiseaseRepository;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IPlantDiseaseRepository _plantDiseaseRepository;
+        private readonly IUserConceptPlantDiseaseRepository _userConceptPlantDiseaseRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PlantDiseaseService(IPlantDiseaseRepository plantDiseaseRepository, IUnitOfWork unitOfWork)
+        public PlantDiseaseService(IPlantDiseaseRepository plantDiseaseRepository, IUnitOfWork unitOfWork, IUserConceptPlantDiseaseRepository userConceptPlantDiseaseRepository)
         {
             _plantDiseaseRepository = plantDiseaseRepository;
+            _userConceptPlantDiseaseRepository = userConceptPlantDiseaseRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -120,6 +122,14 @@ namespace Ontologia.API.Services
             {
                 return new PlantDiseaseResponse($"An error ocurrend while unassigning PlantDisease to conceptType: {ex.Message}");
             }
+        }
+
+        // Methods for UserConceptPlantDisease Entity
+        public async Task<IEnumerable<PlantDisease>> ListByUserConceptIdAsync(Guid userConceptId)
+        {
+            var userConceptsPlantDiseases = await _userConceptPlantDiseaseRepository.ListByUserConceptIdAsync(userConceptId);
+            var plantDiseases = userConceptsPlantDiseases.Select(pt => pt.PlantDisease).ToList();
+            return plantDiseases;
         }
     }
 }

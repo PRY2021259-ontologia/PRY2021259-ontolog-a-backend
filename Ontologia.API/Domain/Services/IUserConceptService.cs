@@ -21,5 +21,8 @@ namespace Ontologia.API.Domain.Services
         Task<IEnumerable<UserConcept>> ListByConceptTypeId(Guid conceptTypeId);
         Task<UserConceptResponse> AssignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
         Task<UserConceptResponse> UnassignUserConceptToConceptType(Guid conceptTypeId, Guid userConceptId);
+
+        // Methods for UserConceptPlantDisease Entity
+        Task<IEnumerable<UserConcept>> ListByPlantDiseaseIdAsync(Guid plantDiseaseId);
     }
 }

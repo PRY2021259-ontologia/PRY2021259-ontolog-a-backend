@@ -7,12 +7,14 @@ namespace Ontologia.API.Services
 {
     public class UserConceptService : IUserConceptService
     {
-        public readonly IUserConceptRepository _userConceptRepository;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IUserConceptRepository _userConceptRepository;
+        private readonly IUserConceptPlantDiseaseRepository _userConceptPlantDiseaseRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserConceptService(IUserConceptRepository userConceptRepository, IUnitOfWork unitOfWork)
+        public UserConceptService(IUserConceptRepository userConceptRepository, IUnitOfWork unitOfWork, IUserConceptPlantDiseaseRepository userConceptPlantDiseaseRepository)
         {
             _userConceptRepository = userConceptRepository;
+            _userConceptPlantDiseaseRepository = userConceptPlantDiseaseRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -160,5 +162,12 @@ namespace Ontologia.API.Services
             }
         }
 
+        // Methods for UserConceptPlantDisease Entity
+        public async Task<IEnumerable<UserConcept>> ListByPlantDiseaseIdAsync(Guid plantDiseaseId)
+        {
+            var userConceptsPlantDiseases = await _userConceptPlantDiseaseRepository.ListByPlantDiseaseIdAsync(plantDiseaseId);
+            var userConcepts = userConceptsPlantDiseases.Select(pt => pt.UserConcept).ToList();
+            return userConcepts;
+        }
     }
 }

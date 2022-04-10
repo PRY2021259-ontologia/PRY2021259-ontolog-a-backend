@@ -7,8 +7,8 @@ namespace Ontologia.API.Services
 {
     public class UserHistoryService : IUserHistoryService
     {
-        public readonly IUserHistoryRepository _userHistoryRepository;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IUserHistoryRepository _userHistoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UserHistoryService(IUserHistoryRepository userHistoryRepository, IUnitOfWork unitOfWork)
         {

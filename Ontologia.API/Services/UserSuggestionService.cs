@@ -7,8 +7,8 @@ namespace Ontologia.API.Services
 {
     public class UserSuggestionService : IUserSuggestionService
     {
-        public readonly IUserSuggestionRepository _userSuggestionRepository;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IUserSuggestionRepository _userSuggestionRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UserSuggestionService(IUserSuggestionRepository userSuggestionRepository, IUnitOfWork unitOfWork)
         {

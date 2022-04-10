@@ -16,5 +16,9 @@ namespace Ontologia.API.Domain.Services
         Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId);
         Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
         Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
+
+
+        // Methods for UserConceptPlantDisease Entity
+        Task<IEnumerable<PlantDisease>> ListByUserConceptIdAsync(Guid userConceptId);
     }
 }
