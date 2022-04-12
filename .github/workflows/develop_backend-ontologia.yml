@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
-          include-prerelease: true
 
       - name: Build with dotnet
         run: |
@@ -30,7 +29,7 @@ jobs:
       - name: dotnet publish
         run: |
           cd Ontologia.API
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish --framework net6.0 --runtime linux-x64 -p:PublishReadyToRun=true --self-contained false --configuration Release --output ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -50,7 +49,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-
+          path: /home/runner/artifact-to-publish
+          
+      - name: Display structure of downloaded files
+        run: |
+          cd /home/runner/artifact-to-publish
+          ls -R
+        
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -58,4 +63,4 @@ jobs:
           app-name: 'backend-ontologia'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55632491F20B4460965925CA328BAF3F }}
-          package: .
+          package: /home/runner/artifact-to-publish
