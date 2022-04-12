@@ -24,7 +24,7 @@ jobs:
       - name: Build with dotnet
         run: |
           cd Ontologia.API
-          dotnet build --configuration Release
+          dotnet build --framework net6.0 --runtime linux-x64 --self-contained false --configuration Release
 
       - name: dotnet publish
         run: |
