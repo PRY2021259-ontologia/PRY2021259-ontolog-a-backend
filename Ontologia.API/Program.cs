@@ -59,7 +59,7 @@ builder.Services.AddSwaggerGen();
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("MY_SQL_CONNECTION_STRING"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("MySqlAzureConnection"));
 });
 
 
