@@ -52,7 +52,9 @@ jobs:
           path: ~/artifact-to-publish
           
       - name: Display structure of downloaded files
-        run: ls -R
+        run: |
+          cd ~/artifact-to-publish
+          ls -R
         working-directory: ~/artifact-to-publish
         
       - name: Deploy to Azure Web App
