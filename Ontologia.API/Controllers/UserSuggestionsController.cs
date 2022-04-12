@@ -9,7 +9,6 @@ using Ontologia.API.Extensions;
 
 namespace Ontologia.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("/api/")]

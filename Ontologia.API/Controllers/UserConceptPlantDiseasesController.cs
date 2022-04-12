@@ -8,7 +8,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Ontologia.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("/api/userConcepts/{userConceptId}/plantDiseases")]
