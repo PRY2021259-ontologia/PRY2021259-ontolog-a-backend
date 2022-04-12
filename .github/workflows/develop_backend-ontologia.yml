@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
-          include-prerelease: true
 
       - name: Build with dotnet
         run: |
@@ -50,7 +49,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/artifact
+          path: ~/artifact-to-publish
+      
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ~/artifact-to-publish
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -59,4 +62,4 @@ jobs:
           app-name: 'backend-ontologia'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55632491F20B4460965925CA328BAF3F }}
-          package: ${{env.DOTNET_ROOT}}/artifact/
+          package: ~/artifact-to-publish
