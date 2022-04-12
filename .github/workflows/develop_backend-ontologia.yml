@@ -55,7 +55,6 @@ jobs:
         run: |
           cd ~/artifact-to-publish
           ls -R
-        working-directory: ~/artifact-to-publish
         
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
