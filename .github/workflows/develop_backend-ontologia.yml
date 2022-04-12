@@ -24,12 +24,12 @@ jobs:
       - name: Build with dotnet
         run: |
           cd Ontologia.API
-          dotnet build --framework net6.0 --runtime linux-x64 --self-contained false --configuration Release
+          dotnet build --configuration Release
 
       - name: dotnet publish
         run: |
           cd Ontologia.API
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish --framework net6.0 --runtime linux-x64 --self-contained false --configuration Release --output ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
