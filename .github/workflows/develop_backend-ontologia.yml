@@ -24,18 +24,19 @@ jobs:
       - name: Build with dotnet
         run: |
           cd Ontologia.API
+          dotnet restore
           dotnet build --configuration Release
 
       - name: dotnet publish
         run: |
           cd Ontologia.API
-          dotnet publish -c Release -r linux-x64 --self-contained false --output ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish -c Release -r linux-x64 --self-contained false --output '${{env.DOTNET_ROOT}}/myapp'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp/*
+          path: '${{env.DOTNET_ROOT}}/myapp'
 
   deploy:
     runs-on: ubuntu-latest
