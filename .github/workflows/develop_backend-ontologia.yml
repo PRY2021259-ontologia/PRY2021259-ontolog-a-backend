@@ -49,11 +49,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          path: ~/artifact-to-publish
+          path: /home/runner/artifact-to-publish
           
       - name: Display structure of downloaded files
         run: |
-          cd ~/artifact-to-publish
+          cd /home/runner/artifact-to-publish
           ls -R
         
       - name: Deploy to Azure Web App
@@ -63,4 +63,4 @@ jobs:
           app-name: 'backend-ontologia'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55632491F20B4460965925CA328BAF3F }}
-          package: ~/artifact-to-publish/
+          package: /home/runner/artifact-to-publish
