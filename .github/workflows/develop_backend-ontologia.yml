@@ -29,7 +29,7 @@ jobs:
       - name: dotnet publish
         run: |
           cd Ontologia.API
-          dotnet publish --framework net6.0 --runtime linux-x64 -p:PublishReadyToRun=true --self-contained false --configuration Release --output ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish --framework net6.0 -p:PublishReadyToRun=true --configuration Release --output ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
