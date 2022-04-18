@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -15,6 +16,24 @@ namespace Ontologia.API.Test.UnitTest
         [SetUp]
         public void Setup()
         {
+        }
+
+        [Test]
+        public async Task ListAsyncWhenNoUserHistorysReturnsEmptyCollection()
+        {
+            var mockUserHistoryRepository = GetDefaultIUserHistoryRepositoryInstance();
+            mockUserHistoryRepository.Setup(r => r.ListAsync())
+                .ReturnsAsync(new List<UserHistory>());
+
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new UserHistoryService(mockUserHistoryRepository.Object, mockUnitOfWork.Object);
+
+            // Act
+            List<UserHistory> result = (List<UserHistory>)await service.ListAsync();
+            int userHistorysCount = result.Count;
+
+            // Assert
+            Assert.AreEqual(0, userHistorysCount);
         }
 
         [Test]

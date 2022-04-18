@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -15,6 +16,24 @@ namespace Ontologia.API.Test.UnitTest
         [SetUp]
         public void Setup()
         {
+        }
+
+        [Test]
+        public async Task ListAsyncWhenNoSuggestionTypesReturnsEmptyCollection()
+        {
+            var mockSuggestionTypeRepository = GetDefaultISuggestionTypeRepositoryInstance();
+            mockSuggestionTypeRepository.Setup(r => r.ListAsync())
+                .ReturnsAsync(new List<SuggestionType>());
+
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new SuggestionTypeService(mockSuggestionTypeRepository.Object, mockUnitOfWork.Object);
+
+            // Act
+            List<SuggestionType> result = (List<SuggestionType>)await service.ListAsync();
+            int suggestionTypesCount = result.Count;
+
+            // Assert
+            Assert.AreEqual(0, suggestionTypesCount);
         }
 
         [Test]

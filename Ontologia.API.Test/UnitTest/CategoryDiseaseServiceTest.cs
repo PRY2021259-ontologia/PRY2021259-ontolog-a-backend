@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -15,6 +16,24 @@ namespace Ontologia.API.Test.UnitTest
         [SetUp]
         public void Setup()
         {
+        }
+
+        [Test]
+        public async Task ListAsyncWhenNoCategoryDiseasesReturnsEmptyCollection()
+        {
+            var mockCategoryDiseaseRepository = GetDefaultICategoryDiseaseRepositoryInstance();
+            mockCategoryDiseaseRepository.Setup(r => r.ListAsync())
+                .ReturnsAsync(new List<CategoryDisease>());
+
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new CategoryDiseaseService(mockCategoryDiseaseRepository.Object, mockUnitOfWork.Object);
+
+            // Act
+            List<CategoryDisease> result = (List<CategoryDisease>)await service.ListAsync();
+            int categoryDiseasesCount = result.Count;
+
+            // Assert
+            Assert.AreEqual(0, categoryDiseasesCount);
         }
 
         [Test]
