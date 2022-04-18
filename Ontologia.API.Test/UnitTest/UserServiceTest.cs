@@ -44,7 +44,5 @@ namespace Ontologia.API.Test.UnitTest
         {
             return new Mock<IUnitOfWork>();
         }
-
-
     }
 }
