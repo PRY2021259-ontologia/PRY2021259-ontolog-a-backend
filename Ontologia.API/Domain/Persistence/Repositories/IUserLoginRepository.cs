@@ -10,5 +10,10 @@ namespace Ontologia.API.Domain.Persistence.Repositories
         Task<UserLogin> FindById(Guid id);
         void Update(UserLogin userLogin);
         void Remove(UserLogin userLogin);
+
+        // Methods for User Entity
+        Task<UserLogin> GetByUserIdAsync(Guid userId);
+        Task AssingUserToUserLogin(Guid userId, Guid userLoginId);
+        Task UnassingUserToUserLogin(Guid userId, Guid userLoginId);
     }
 }
