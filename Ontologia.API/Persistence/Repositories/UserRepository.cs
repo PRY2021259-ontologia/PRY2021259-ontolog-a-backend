@@ -17,8 +17,6 @@ namespace Ontologia.API.Persistence.Repositories
             await _context.Users.AddAsync(user);
         }
 
-       
-
         public async Task<User> FindById(Guid id)
         {
             return await _context.Users.FindAsync(id);
