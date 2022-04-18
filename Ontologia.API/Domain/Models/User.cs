@@ -18,5 +18,9 @@
         public IList<UserConcept> UserConcepts { get; set; } = new List<UserConcept>();
         public IList<UserSuggestion> UserSuggestions { get; set; } = new List<UserSuggestion>();
         public IList<UserHistory> UserHistories { get; set; } = new List<UserHistory>();
+
+        // Relationship with UserLogin Entity
+        public Guid? UserLoginId { get; set; }
+        public UserLogin? UserLogin { get; set; }
     }
 }
