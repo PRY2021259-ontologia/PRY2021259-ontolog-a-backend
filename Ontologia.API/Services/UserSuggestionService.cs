@@ -36,7 +36,7 @@ namespace Ontologia.API.Services
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)
-                return new UserSuggestionResponse("UserSuggestion not found");
+                return new UserSuggestionResponse("UserSuggestion Not Found");
             try
             {
                 _userSuggestionRepository.Remove(existingUserSuggestion);
@@ -53,7 +53,7 @@ namespace Ontologia.API.Services
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)
-                return new UserSuggestionResponse("UserSuggestion not found");
+                return new UserSuggestionResponse("UserSuggestion Not Found");
             return new UserSuggestionResponse(existingUserSuggestion);
         }
 
@@ -66,7 +66,7 @@ namespace Ontologia.API.Services
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
             if (existingUserSuggestion == null)
-                return new UserSuggestionResponse("UserSuggestion not found");
+                return new UserSuggestionResponse("UserSuggestion Not Found");
 
             existingUserSuggestion.Comment = userSuggestion.Comment;
             existingUserSuggestion.OptionalEmail = userSuggestion.OptionalEmail;
