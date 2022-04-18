@@ -43,7 +43,7 @@ namespace Ontologia.API.Services
         {
             var existingPlantDisease = await _plantDiseaseRepository.GetById(plantDiseaseId);
             if (existingPlantDisease == null)
-                return new PlantDiseaseResponse("PlantDisease not found");
+                return new PlantDiseaseResponse("PlantDisease Not Found");
             return new PlantDiseaseResponse(existingPlantDisease);
         }
 
@@ -51,7 +51,7 @@ namespace Ontologia.API.Services
         {
             var existingPlantDisease = await _plantDiseaseRepository.GetById(plantDiseaseId);
             if (existingPlantDisease == null)
-                return new PlantDiseaseResponse("PlantDisease not found");
+                return new PlantDiseaseResponse("PlantDisease Not Found");
 
             existingPlantDisease.Name = plantDisease.Name;
             existingPlantDisease.Description = plantDisease.Description;
@@ -75,7 +75,7 @@ namespace Ontologia.API.Services
         {
             var existingPlantDisease = await _plantDiseaseRepository.GetById(plantDiseaseId);
             if (existingPlantDisease == null)
-                return new PlantDiseaseResponse("PlantDisease not found");
+                return new PlantDiseaseResponse("PlantDisease Not Found");
             try
             {
                 _plantDiseaseRepository.Remove(existingPlantDisease);

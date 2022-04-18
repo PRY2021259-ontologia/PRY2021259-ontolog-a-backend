@@ -43,7 +43,7 @@ namespace Ontologia.API.Services
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)
-                return new UserConceptResponse("UserConcept not found");
+                return new UserConceptResponse("UserConcept Not Found");
             return new UserConceptResponse(existingUserConcept);
         }
 
@@ -51,7 +51,7 @@ namespace Ontologia.API.Services
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)
-                return new UserConceptResponse("UserConcept not found");
+                return new UserConceptResponse("UserConcept Not Found");
 
             existingUserConcept.Title = userConcept.Title;
             existingUserConcept.Description = userConcept.Description;
@@ -76,7 +76,7 @@ namespace Ontologia.API.Services
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
             if (existingUserConcept == null)
-                return new UserConceptResponse("UserConcept not found");
+                return new UserConceptResponse("UserConcept Not Found");
             try
             {
                 _userConceptRepository.Remove(existingUserConcept);

@@ -22,15 +22,15 @@ namespace Ontologia.API.Test.UnitTest
         {
             // Arrange
             var mockConceptTypeRepository = GetDefaultIConceptTypeRepositoryInstance();
-            var ConceptTypeId = Guid.NewGuid();
-            mockConceptTypeRepository.Setup(r => r.FindById(ConceptTypeId))
+            var conceptTypeId = Guid.NewGuid();
+            mockConceptTypeRepository.Setup(r => r.FindById(conceptTypeId))
                 .Returns(Task.FromResult<ConceptType>(null));
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new ConceptTypeService(mockConceptTypeRepository.Object, mockUnitOfWork.Object);
 
             // Act
-            ConceptTypeResponse result = await service.GetByIdAsync(ConceptTypeId);
+            ConceptTypeResponse result = await service.GetByIdAsync(conceptTypeId);
             var message = result.Message;
             // Assert
             message.Should().Be("ConceptType Not Found");
