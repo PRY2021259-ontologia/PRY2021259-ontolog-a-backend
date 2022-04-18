@@ -35,7 +35,7 @@ namespace Ontologia.API.Services
         {
             var existingUserHistory = await _userHistoryRepository.GetById(userHistoryId);
             if (existingUserHistory == null)
-                return new UserHistoryResponse("UserHistory not found");
+                return new UserHistoryResponse("UserHistory Not Found");
             try
             {
                 _userHistoryRepository.Remove(existingUserHistory);
@@ -52,7 +52,7 @@ namespace Ontologia.API.Services
         {
             var existingUserHistory = await _userHistoryRepository.GetById(userHistoryId);
             if (existingUserHistory == null)
-                return new UserHistoryResponse("UserHistory not found");
+                return new UserHistoryResponse("UserHistory Not Found");
             return new UserHistoryResponse(existingUserHistory);
         }
 
