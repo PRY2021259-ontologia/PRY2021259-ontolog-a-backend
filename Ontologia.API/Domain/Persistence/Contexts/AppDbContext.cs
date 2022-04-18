@@ -16,6 +16,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<CategoryDisease> CategoryDiseases { get; set; }
         public DbSet<PlantDisease> PlantDiseases { get; set; }
         public DbSet<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
+        public DbSet<UserLogin> UserLogins { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -51,6 +52,14 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .WithMany(ut => ut.Users)
                 .HasForeignKey(ut => ut.UserTypeId);
 
+            builder.Entity<UserLogin>()
+               .HasOne(ul => ul.User)
+               .WithOne(ul => ul.UserLogin)
+               .HasForeignKey<User>(ul => ul.UserLoginId);
+            builder.Entity<User>()
+                .HasOne(ul => ul.UserLogin)
+                .WithOne(ul => ul.User)
+                .HasForeignKey<User>(ul => ul.UserLoginId);
 
             // UserConcept Entity
 
@@ -250,6 +259,21 @@ namespace Ontologia.API.Domain.Persistence.Contexts
                 .HasOne(pt => pt.PlantDisease)
                 .WithMany(t => t.UserConceptPlantDiseases)
                 .HasForeignKey(pt => pt.PlantDiseaseId);
+
+            // UserLogin Entity
+
+            builder.Entity<UserLogin>().ToTable("UserLogins");
+
+            // Constraints
+
+            builder.Entity<UserLogin>().HasKey(p => p.Id);
+            builder.Entity<UserLogin>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<UserLogin>().Property(p => p.Username).IsRequired();
+            builder.Entity<UserLogin>().Property(p => p.Password).IsRequired();
+            builder.Entity<UserLogin>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<UserLogin>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserLogin>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
             // Naming Conventions Policy
 
