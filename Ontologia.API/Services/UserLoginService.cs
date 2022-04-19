@@ -2,6 +2,8 @@
 using Ontologia.API.Domain.Persistence.Repositories;
 using Ontologia.API.Domain.Services;
 using Ontologia.API.Domain.Services.Communications;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Ontologia.API.Services
 {
@@ -58,6 +60,7 @@ namespace Ontologia.API.Services
         {
             try
             {
+                userLogin.Password = Hashpassword(userLogin.Password);
                 await _userLoginRepository.AddAsync(userLogin);
                 await _unitOfWork.CompleteAsync();
 
@@ -67,6 +70,28 @@ namespace Ontologia.API.Services
             {
                 return new UserLoginResponse($"An error ocurred while saving the UserLogin: {ex.Message}");
             }
+        }
+
+        private string Hashpassword(string password)
+        {
+            //https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-6.0
+            // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
+            
+            byte[] salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+
+            // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+
+            return hashed;
         }
 
         public async Task<UserLoginResponse> UpdateAsync(Guid id, UserLogin userLogin)
