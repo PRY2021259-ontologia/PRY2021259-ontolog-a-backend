@@ -18,6 +18,10 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
 
+        // TODO: SuggestionStatus
+
+        public DbSet<StatusType> StatusTypes { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -274,6 +278,23 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<UserLogin>().Property(p => p.IsActive).IsRequired();
             builder.Entity<UserLogin>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<UserLogin>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            //TODO: SuggestionStatus
+
+            // StatusType Entity
+
+            builder.Entity<StatusType>().ToTable("StatusTypes");
+
+            // Constraints
+
+            builder.Entity<StatusType>().HasKey(p => p.Id);
+            builder.Entity<StatusType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<StatusType>().Property(p => p.Title).IsRequired();
+            builder.Entity<StatusType>().Property(p => p.Description).IsRequired();
+            builder.Entity<StatusType>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<StatusType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<StatusType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
             // Naming Conventions Policy
 
