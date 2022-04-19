@@ -2,14 +2,12 @@
 
 namespace Ontologia.API.Resources
 {
-    public class SaveUserResource
+    public class SaveStatusTypeResource
     {
         [Required]
-        public string Name { get; set; }
+        public string Title { get; set; }
         [Required]
-        public string LastName { get; set; }
-        [Required]
-        public string Email { get; set; }
+        public string Description { get; set; }
         [Required]
         public bool IsActive { get; set; }
     }
