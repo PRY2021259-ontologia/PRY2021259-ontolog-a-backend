@@ -14,7 +14,7 @@
         public Guid? UserTypeId { get; set; }
         public UserType? UserType { get; set; }
 
-        // Relationship with UserConcept | UseSuggestion | UserHistory
+        // Relationship with UserConcept | UserSuggestion | UserHistory
         public IList<UserConcept> UserConcepts { get; set; } = new List<UserConcept>();
         public IList<UserSuggestion> UserSuggestions { get; set; } = new List<UserSuggestion>();
         public IList<UserHistory> UserHistories { get; set; } = new List<UserHistory>();

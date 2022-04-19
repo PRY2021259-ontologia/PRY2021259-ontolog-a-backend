@@ -16,5 +16,8 @@
         // Relationship with SuggestionType Entity
         public Guid? SuggestionTypeId { get; set; }
         public SuggestionType? SuggestionType{ get; set; }
+
+        // Relationship with SuggestionStatus
+        public IList<SuggestionStatus> SuggestionStatuses { get; set; } = new List<SuggestionStatus>();
     }
 }
