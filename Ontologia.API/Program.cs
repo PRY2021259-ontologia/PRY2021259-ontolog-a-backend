@@ -48,6 +48,7 @@ builder.Services.AddScoped<ISuggestionTypeRepository, SuggestionTypeRepository>(
 builder.Services.AddScoped<ICategoryDiseaseRepository, CategoryDiseaseRepository>();
 builder.Services.AddScoped<IPlantDiseaseRepository, PlantDiseaseRepository>();
 builder.Services.AddScoped<IUserConceptPlantDiseaseRepository, UserConceptPlantDiseaseRepository>();
+builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
 
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
@@ -60,6 +61,7 @@ builder.Services.AddScoped<ISuggestionTypeService, SuggestionTypeService>();
 builder.Services.AddScoped<ICategoryDiseaseService, CategoryDiseaseService>();
 builder.Services.AddScoped<IPlantDiseaseService, PlantDiseaseService>();
 builder.Services.AddScoped<IUserConceptPlantDiseaseService, UserConceptPlantDiseaseService>();
+builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 
 //Endpoinst case conventions configurations
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
