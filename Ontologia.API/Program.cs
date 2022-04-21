@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Ontologia.API.Domain.Persistence.Contexts;
 using Ontologia.API.Domain.Persistence.Repositories;
@@ -108,6 +108,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapGet("/", async context => await context.Response.WriteAsync("PRY2021259 ONTOLOGY API RUNNING 🚀"));
     endpoints.MapControllers();
 });
 app.MapControllers();
