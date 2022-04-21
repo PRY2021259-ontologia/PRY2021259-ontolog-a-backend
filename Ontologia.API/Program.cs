@@ -100,7 +100,7 @@ using (var context = scope.ServiceProvider.GetService<AppDbContext>())
 //    app.UseSwaggerUI();
 //}
 app.UseSwagger();
-app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"); });
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 //
@@ -108,6 +108,10 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapGet("/",  context => { 
+        context.Response.Redirect("/swagger/index.html", false);
+        return Task.FromResult(0);
+    });
     endpoints.MapControllers();
 });
 app.MapControllers();
