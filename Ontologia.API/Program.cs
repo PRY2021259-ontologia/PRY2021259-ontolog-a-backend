@@ -100,7 +100,7 @@ using (var context = scope.ServiceProvider.GetService<AppDbContext>())
 //    app.UseSwaggerUI();
 //}
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"); });
 app.UseHttpsRedirection();
 
 //
@@ -108,7 +108,6 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapGet("/", async context => await context.Response.WriteAsync("PRY2021259 ONTOLOGY API RUNNING 🚀"));
     endpoints.MapControllers();
 });
 app.MapControllers();
