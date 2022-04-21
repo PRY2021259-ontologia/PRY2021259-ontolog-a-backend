@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Ontologia.API.Domain.Persistence.Contexts;
@@ -9,11 +8,12 @@ using Ontologia.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
-    .Build();
+    .AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -49,7 +49,6 @@ builder.Services.AddScoped<ICategoryDiseaseRepository, CategoryDiseaseRepository
 builder.Services.AddScoped<IPlantDiseaseRepository, PlantDiseaseRepository>();
 builder.Services.AddScoped<IUserConceptPlantDiseaseRepository, UserConceptPlantDiseaseRepository>();
 builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
-
 builder.Services.AddScoped<IStatusTypeRepository, StatusTypeRepository>();
 
 // Services
