@@ -74,7 +74,7 @@ namespace Ontologia.API.Services
 
         private string Hashpassword(string password)
         {
-            //https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-6.0
+            // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-6.0
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             
             byte[] salt = new byte[128 / 8];

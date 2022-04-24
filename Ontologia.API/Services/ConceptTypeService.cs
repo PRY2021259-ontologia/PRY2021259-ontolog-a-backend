@@ -73,7 +73,8 @@ namespace Ontologia.API.Services
             if (existingConceptType == null)
                 return new ConceptTypeResponse("ConceptType Not Found");
 
-            existingConceptType.Description = conceptType.Description;
+            existingConceptType.ConceptTypeName = conceptType.ConceptTypeName;
+            existingConceptType.ConceptTypeDescription = conceptType.ConceptTypeDescription;
             existingConceptType.IsActive = conceptType.IsActive;
             existingConceptType.CreatedOn = conceptType.CreatedOn;
             existingConceptType.ModifiedOn = conceptType.ModifiedOn;

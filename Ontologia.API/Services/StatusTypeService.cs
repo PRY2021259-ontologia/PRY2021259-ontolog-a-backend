@@ -76,8 +76,8 @@ namespace Ontologia.API.Services
             if (existingStatusType == null)
                 return new StatusTypeResponse("StatusType Not Found");
 
-            existingStatusType.Title = statusType.Title;
-            existingStatusType.Description = statusType.Description;
+            existingStatusType.StatusTypeTitle = statusType.StatusTypeTitle;
+            existingStatusType.StatusTypeDescription = statusType.StatusTypeDescription;
             existingStatusType.IsActive = statusType.IsActive;
             existingStatusType.CreatedOn = statusType.CreatedOn;
             existingStatusType.ModifiedOn = statusType.ModifiedOn;

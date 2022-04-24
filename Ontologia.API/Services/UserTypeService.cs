@@ -73,7 +73,8 @@ namespace Ontologia.API.Services
             if (existingUserType == null)
                 return new UserTypeResponse("UserType Not Found");
 
-            existingUserType.Description = userType.Description;
+            existingUserType.UserTypeName = userType.UserTypeName;
+            existingUserType.UserTypeDescription = userType.UserTypeDescription;
             existingUserType.IsActive = userType.IsActive;
             existingUserType.CreatedOn = userType.CreatedOn;
             existingUserType.ModifiedOn = userType.ModifiedOn;

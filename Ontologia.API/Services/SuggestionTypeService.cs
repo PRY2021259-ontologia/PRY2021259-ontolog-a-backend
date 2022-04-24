@@ -73,7 +73,8 @@ namespace Ontologia.API.Services
             if (existingSuggestionType == null)
                 return new SuggestionTypeResponse("SuggestionType Not Found");
 
-            existingSuggestionType.Description = suggestionType.Description;
+            existingSuggestionType.SuggestionTypeName = suggestionType.SuggestionTypeName;
+            existingSuggestionType.SuggestionTypeDescription = suggestionType.SuggestionTypeDescription;
             existingSuggestionType.IsActive = suggestionType.IsActive;
             existingSuggestionType.CreatedOn = suggestionType.CreatedOn;
             existingSuggestionType.ModifiedOn = suggestionType.ModifiedOn;

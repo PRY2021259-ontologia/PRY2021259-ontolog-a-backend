@@ -53,8 +53,8 @@ namespace Ontologia.API.Services
             if (existingUserConcept == null)
                 return new UserConceptResponse("UserConcept Not Found");
 
-            existingUserConcept.Title = userConcept.Title;
-            existingUserConcept.Description = userConcept.Description;
+            existingUserConcept.UserConceptTitle = userConcept.UserConceptTitle;
+            existingUserConcept.UserConceptDescription = userConcept.UserConceptDescription;
             existingUserConcept.Url = userConcept.Url;
             existingUserConcept.IsActive = userConcept.IsActive;
             existingUserConcept.CreatedOn = userConcept.CreatedOn;

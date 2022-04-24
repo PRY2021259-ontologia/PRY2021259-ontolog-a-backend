@@ -73,7 +73,8 @@ namespace Ontologia.API.Services
             if (existingCategoryDisease == null)
                 return new CategoryDiseaseResponse("CategoryDisease Not Found");
 
-            existingCategoryDisease.Description = categoryDisease.Description;
+            existingCategoryDisease.CategoryDiseaseName = categoryDisease.CategoryDiseaseName;
+            existingCategoryDisease.CategoryDiseaseDescription = categoryDisease.CategoryDiseaseDescription;
             existingCategoryDisease.IsActive = categoryDisease.IsActive;
             existingCategoryDisease.CreatedOn = categoryDisease.CreatedOn;
             existingCategoryDisease.ModifiedOn = categoryDisease.ModifiedOn;

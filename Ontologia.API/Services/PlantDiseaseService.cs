@@ -53,8 +53,8 @@ namespace Ontologia.API.Services
             if (existingPlantDisease == null)
                 return new PlantDiseaseResponse("PlantDisease Not Found");
 
-            existingPlantDisease.Name = plantDisease.Name;
-            existingPlantDisease.Description = plantDisease.Description;
+            existingPlantDisease.PlantDiseaseName = plantDisease.PlantDiseaseName;
+            existingPlantDisease.PlantDiseaseDescription = plantDisease.PlantDiseaseDescription;
             existingPlantDisease.IsActive = plantDisease.IsActive;
             existingPlantDisease.CreatedOn = plantDisease.CreatedOn;
             existingPlantDisease.ModifiedOn = plantDisease.ModifiedOn;
