@@ -5,7 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveCategoryDiseaseResource
     {
         [Required]
-        public string Description { get; set; }
+        public string CategoryDiseaseName { get; set; }
+        [Required]
+        public string CategoryDiseaseDescription { get; set; }
         [Required]
         public bool isActive { get; set; }
     }

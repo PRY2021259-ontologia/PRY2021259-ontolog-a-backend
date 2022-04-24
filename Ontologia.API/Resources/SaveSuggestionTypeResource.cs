@@ -5,7 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveSuggestionTypeResource
     {
         [Required]
-        public string Description { get; set; }
+        public string SuggestionTypeName { get; set; }
+        [Required]
+        public string SuggestionTypeDescription { get; set; }
         [Required]
         public bool isActive { get; set; }
     }

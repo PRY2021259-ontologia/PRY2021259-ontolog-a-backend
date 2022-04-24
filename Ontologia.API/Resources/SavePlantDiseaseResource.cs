@@ -5,9 +5,9 @@ namespace Ontologia.API.Resources
     public class SavePlantDiseaseResource
     {
         [Required]
-        public string Name { get; set; }
+        public string PlantDiseaseName { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string PlantDiseaseDescription { get; set; }
         [Required]
         public bool isActive { get; set; }
     }

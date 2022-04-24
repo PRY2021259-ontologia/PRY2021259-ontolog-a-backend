@@ -5,9 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveStatusTypeResource
     {
         [Required]
-        public string Title { get; set; }
+        public string StatusTypeTitle { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string StatusTypeDescription { get; set; }
         [Required]
         public bool IsActive { get; set; }
     }

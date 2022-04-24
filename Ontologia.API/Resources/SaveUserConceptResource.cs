@@ -5,9 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveUserConceptResource
     {
         [Required]
-        public string Title { get; set; }
+        public string UserConceptTitle { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string UserConceptDescription { get; set; }
         [Required]
         public string Url { get; set; }
         [Required]

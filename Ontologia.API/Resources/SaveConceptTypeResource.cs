@@ -5,7 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveConceptTypeResource
     {
         [Required]
-        public string Description { get; set; }
+        public string ConceptTypeName { get; set; }
+        [Required]
+        public string ConceptTypeDescription { get; set; }
         [Required]
         public bool isActive { get; set; }
     }

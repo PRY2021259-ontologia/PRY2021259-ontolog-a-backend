@@ -5,7 +5,9 @@ namespace Ontologia.API.Resources
     public class SaveUserTypeResource
     {
         [Required]
-        public string Description { get; set; }
+        public string UserTypeName { get; set; }
+        [Required]
+        public string UserTypeDescription { get; set; }
         [Required]
         public bool isActive { get; set; }
     }
