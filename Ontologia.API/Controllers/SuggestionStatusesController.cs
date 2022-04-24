@@ -12,12 +12,12 @@ namespace Ontologia.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/")]
-    public class SuggestionStatussController : ControllerBase
+    public class SuggestionStatusesController : ControllerBase
     {
         private readonly ISuggestionStatusService _suggestionStatusService;
         private readonly IMapper _mapper;
 
-        public SuggestionStatussController(ISuggestionStatusService suggestionStatusService, IMapper mapper)
+        public SuggestionStatusesController(ISuggestionStatusService suggestionStatusService, IMapper mapper)
         {
             _suggestionStatusService = suggestionStatusService;
             _mapper = mapper;
