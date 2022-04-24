@@ -17,9 +17,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
         public DbSet<PlantDisease> PlantDiseases { get; set; }
         public DbSet<UserConceptPlantDisease> UserConceptPlantDiseases { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
-
-        // TODO: SuggestionStatus
-
+        public DbSet<SuggestionStatus> SuggestionStatuses { get; set; }
         public DbSet<StatusType> StatusTypes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -74,8 +72,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<UserConcept>().HasKey(p => p.Id);
             builder.Entity<UserConcept>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<UserConcept>().Property(p => p.Title).IsRequired();
-            builder.Entity<UserConcept>().Property(p => p.Description).IsRequired();
+            builder.Entity<UserConcept>().Property(p => p.UserConceptTitle).IsRequired();
+            builder.Entity<UserConcept>().Property(p => p.UserConceptDescription).IsRequired();
             builder.Entity<UserConcept>().Property(p => p.Url).IsRequired();
             builder.Entity<UserConcept>().Property(p => p.IsActive).IsRequired();
             builder.Entity<UserConcept>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
@@ -171,7 +169,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<ConceptType>().HasKey(p => p.Id);
             builder.Entity<ConceptType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<ConceptType>().Property(p => p.Description).IsRequired();
+            builder.Entity<ConceptType>().Property(p => p.ConceptTypeName).IsRequired();
+            builder.Entity<ConceptType>().Property(p => p.ConceptTypeDescription).IsRequired();
             builder.Entity<ConceptType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<ConceptType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ConceptType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
@@ -185,7 +184,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<UserType>().HasKey(p => p.Id);
             builder.Entity<UserType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<UserType>().Property(p => p.Description).IsRequired();
+            builder.Entity<UserType>().Property(p => p.UserTypeName).IsRequired();
+            builder.Entity<UserType>().Property(p => p.UserTypeDescription).IsRequired();
             builder.Entity<UserType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<UserType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<UserType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
@@ -199,7 +199,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<SuggestionType>().HasKey(p => p.Id);
             builder.Entity<SuggestionType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<SuggestionType>().Property(p => p.Description).IsRequired();
+            builder.Entity<SuggestionType>().Property(p => p.SuggestionTypeName).IsRequired();
+            builder.Entity<SuggestionType>().Property(p => p.SuggestionTypeDescription).IsRequired();
             builder.Entity<SuggestionType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<SuggestionType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<SuggestionType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
@@ -213,7 +214,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<CategoryDisease>().HasKey(p => p.Id);
             builder.Entity<CategoryDisease>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<CategoryDisease>().Property(p => p.Description).IsRequired();
+            builder.Entity<CategoryDisease>().Property(p => p.CategoryDiseaseName).IsRequired();
+            builder.Entity<CategoryDisease>().Property(p => p.CategoryDiseaseDescription).IsRequired();
             builder.Entity<CategoryDisease>().Property(p => p.IsActive).IsRequired();
             builder.Entity<CategoryDisease>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<CategoryDisease>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
@@ -227,8 +229,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<PlantDisease>().HasKey(p => p.Id);
             builder.Entity<PlantDisease>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<PlantDisease>().Property(p => p.Name).IsRequired();
-            builder.Entity<PlantDisease>().Property(p => p.Description).IsRequired();
+            builder.Entity<PlantDisease>().Property(p => p.PlantDiseaseName).IsRequired();
+            builder.Entity<PlantDisease>().Property(p => p.PlantDiseaseDescription).IsRequired();
             builder.Entity<PlantDisease>().Property(p => p.IsActive).IsRequired();
             builder.Entity<PlantDisease>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<PlantDisease>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
@@ -252,7 +254,7 @@ namespace Ontologia.API.Domain.Persistence.Contexts
 
             builder.Entity<UserConceptPlantDisease>().HasKey(p => new { p.UserConceptId, p.PlantDiseaseId });
 
-            // RelastionShips
+            // RelationShips
 
             builder.Entity<UserConceptPlantDisease>()
                 .HasOne(pt => pt.UserConcept)
@@ -279,7 +281,42 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<UserLogin>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<UserLogin>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
 
-            //TODO: SuggestionStatus
+            // SuggestionStatus Entity
+
+            builder.Entity<SuggestionStatus>().ToTable("SuggestionStatuses");
+
+            // Constraints
+
+            builder.Entity<SuggestionStatus>().HasKey(p => p.Id);
+            builder.Entity<SuggestionStatus>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<SuggestionStatus>().Property(p => p.SuggestionStatusTitle).IsRequired();
+            builder.Entity<SuggestionStatus>().Property(p => p.SuggestionStatusDescription).IsRequired();
+            builder.Entity<SuggestionStatus>().Property(p => p.Url).IsRequired();
+            builder.Entity<SuggestionStatus>().Property(p => p.IsProcessed).IsRequired();
+            builder.Entity<SuggestionStatus>().Property(p => p.IsActive).IsRequired();
+            builder.Entity<SuggestionStatus>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SuggestionStatus>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
+
+            // RelationShips
+
+            builder.Entity<StatusType>()
+               .HasMany(st => st.SuggestionStatuses)
+               .WithOne(st => st.StatusType)
+               .HasForeignKey(st => st.StatusTypeId);
+            builder.Entity<SuggestionStatus>()
+                .HasOne(ss => ss.StatusType)
+                .WithMany(ss => ss.SuggestionStatuses)
+                .HasForeignKey(ss => ss.StatusTypeId);
+
+            builder.Entity<UserSuggestion>()
+               .HasMany(st => st.SuggestionStatuses)
+               .WithOne(st => st.UserSuggestion)
+               .HasForeignKey(st => st.UserSuggestionId);
+            builder.Entity<SuggestionStatus>()
+                .HasOne(ss => ss.UserSuggestion)
+                .WithMany(ss => ss.SuggestionStatuses)
+                .HasForeignKey(ss => ss.UserSuggestionId);
 
             // StatusType Entity
 
@@ -290,8 +327,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<StatusType>().HasKey(p => p.Id);
             builder.Entity<StatusType>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Entity<StatusType>().Property(p => p.Title).IsRequired();
-            builder.Entity<StatusType>().Property(p => p.Description).IsRequired();
+            builder.Entity<StatusType>().Property(p => p.StatusTypeTitle).IsRequired();
+            builder.Entity<StatusType>().Property(p => p.StatusTypeDescription).IsRequired();
             builder.Entity<StatusType>().Property(p => p.IsActive).IsRequired();
             builder.Entity<StatusType>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<StatusType>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();
