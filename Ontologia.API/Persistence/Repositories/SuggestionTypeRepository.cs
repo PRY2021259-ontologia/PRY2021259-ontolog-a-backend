@@ -11,9 +11,10 @@ namespace Ontologia.API.Persistence.Repositories
         {
         }
 
-        public async Task AddAsync(SuggestionType SuggestionType)
+        public async Task AddAsync(SuggestionType suggestionType)
         {
-            await _context.SuggestionTypes.AddAsync(SuggestionType);
+            suggestionType.IsActive = true;
+            await _context.SuggestionTypes.AddAsync(suggestionType);
         }
 
         public async Task<SuggestionType> FindById(Guid id)
@@ -26,14 +27,15 @@ namespace Ontologia.API.Persistence.Repositories
             return await _context.SuggestionTypes.ToListAsync();
         }
 
-        public void Remove(SuggestionType SuggestionType)
+        public void Remove(SuggestionType suggestionType)
         {
-            _context.SuggestionTypes.Remove(SuggestionType);
+            suggestionType.IsActive = false;
+            _context.SuggestionTypes.Remove(suggestionType);
         }
 
-        public void Update(SuggestionType SuggestionType)
+        public void Update(SuggestionType suggestionType)
         {
-            _context.SuggestionTypes.Update(SuggestionType);
+            _context.SuggestionTypes.Update(suggestionType);
         }
     }
 }

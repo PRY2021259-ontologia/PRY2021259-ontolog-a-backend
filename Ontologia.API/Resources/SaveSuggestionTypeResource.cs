@@ -8,7 +8,5 @@ namespace Ontologia.API.Resources
         public string SuggestionTypeName { get; set; }
         [Required]
         public string SuggestionTypeDescription { get; set; }
-        [Required]
-        public bool isActive { get; set; }
     }
 }

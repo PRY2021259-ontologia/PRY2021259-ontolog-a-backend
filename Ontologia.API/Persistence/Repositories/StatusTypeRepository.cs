@@ -14,6 +14,7 @@ namespace Ontologia.API.Persistence.Repositories
         // General Methods
         public async Task AddAsync(StatusType statusType)
         {
+            statusType.IsActive = true;
             await _context.StatusTypes.AddAsync(statusType);
         }
 
@@ -29,6 +30,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(StatusType statusType)
         {
+            statusType.IsActive = false;
             _context.StatusTypes.Remove(statusType);
         }
 

@@ -8,7 +8,5 @@ namespace Ontologia.API.Resources
         public string StatusTypeTitle { get; set; }
         [Required]
         public string StatusTypeDescription { get; set; }
-        [Required]
-        public bool IsActive { get; set; }
     }
 }

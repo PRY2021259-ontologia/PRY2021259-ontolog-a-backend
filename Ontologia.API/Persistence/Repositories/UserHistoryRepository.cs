@@ -13,6 +13,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public async Task AddAsync(UserHistory userHistory)
         {
+            userHistory.IsActive = true;
             await _context.UserHistories.AddAsync(userHistory);
         }
 
@@ -45,6 +46,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(UserHistory userHistory)
         {
+            userHistory.IsActive = false;
             _context.UserHistories.Remove(userHistory);
         }
 

@@ -8,7 +8,5 @@ namespace Ontologia.API.Resources
         public string PlantDiseaseName { get; set; }
         [Required]
         public string PlantDiseaseDescription { get; set; }
-        [Required]
-        public bool isActive { get; set; }
     }
 }

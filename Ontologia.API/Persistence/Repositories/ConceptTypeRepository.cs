@@ -13,6 +13,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public async Task AddAsync(ConceptType conceptType)
         {
+            conceptType.IsActive = true;
             await _context.ConceptTypes.AddAsync(conceptType);
         }
 
@@ -28,6 +29,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(ConceptType conceptType)
         {
+            conceptType.IsActive = false;
             _context.ConceptTypes.Remove(conceptType);
         }
 

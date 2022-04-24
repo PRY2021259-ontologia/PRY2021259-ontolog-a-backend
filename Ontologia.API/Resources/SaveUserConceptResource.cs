@@ -10,7 +10,5 @@ namespace Ontologia.API.Resources
         public string UserConceptDescription { get; set; }
         [Required]
         public string Url { get; set; }
-        [Required]
-        public bool isActive { get; set; }
     }
 }

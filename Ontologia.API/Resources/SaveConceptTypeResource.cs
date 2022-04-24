@@ -8,7 +8,5 @@ namespace Ontologia.API.Resources
         public string ConceptTypeName { get; set; }
         [Required]
         public string ConceptTypeDescription { get; set; }
-        [Required]
-        public bool isActive { get; set; }
     }
 }

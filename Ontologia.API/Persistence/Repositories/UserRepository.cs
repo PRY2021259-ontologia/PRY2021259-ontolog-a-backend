@@ -14,6 +14,7 @@ namespace Ontologia.API.Persistence.Repositories
         // General Methods
         public async Task AddAsync(User user)
         {
+            user.IsActive = true;
             await _context.Users.AddAsync(user);
         }
 
@@ -29,6 +30,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(User user)
         {
+            user.IsActive = false;
             _context.Users.Remove(user);
         }
 

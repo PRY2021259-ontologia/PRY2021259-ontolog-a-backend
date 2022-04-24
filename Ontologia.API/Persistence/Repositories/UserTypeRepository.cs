@@ -13,6 +13,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public async Task AddAsync(UserType userType)
         {
+            userType.IsActive = true;
             await _context.UserTypes.AddAsync(userType);
         }
 
@@ -28,6 +29,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(UserType userType)
         {
+            userType.IsActive = false;
             _context.UserTypes.Remove(userType);
         }
 

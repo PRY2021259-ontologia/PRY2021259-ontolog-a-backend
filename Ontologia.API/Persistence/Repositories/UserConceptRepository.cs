@@ -15,6 +15,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public async Task AddAsync(UserConcept userConcept)
         {
+            userConcept.IsActive = true;
             await _context.UserConcepts.AddAsync(userConcept);
         }
 
@@ -35,6 +36,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(UserConcept userConcept)
         {
+            userConcept.IsActive = false;
             _context.UserConcepts.Remove(userConcept);
         }
 

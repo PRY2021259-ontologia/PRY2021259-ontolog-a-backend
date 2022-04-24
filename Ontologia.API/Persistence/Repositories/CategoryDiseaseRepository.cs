@@ -13,6 +13,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public async Task AddAsync(CategoryDisease categoryDisease)
         {
+            categoryDisease.IsActive = true;
             await _context.CategoryDiseases.AddAsync(categoryDisease);
         }
 
@@ -28,6 +29,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(CategoryDisease categoryDisease)
         {
+            categoryDisease.IsActive = false;
             _context.CategoryDiseases.Remove(categoryDisease);
         }
 

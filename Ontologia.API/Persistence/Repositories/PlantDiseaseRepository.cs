@@ -14,6 +14,7 @@ namespace Ontologia.API.Persistence.Repositories
         // General Methods
         public async Task AddAsync(PlantDisease plantDisease)
         {
+            plantDisease.IsActive = true;
             await _context.PlantDiseases.AddAsync(plantDisease);
         }
 
@@ -34,6 +35,7 @@ namespace Ontologia.API.Persistence.Repositories
 
         public void Remove(PlantDisease plantDisease)
         {
+            plantDisease.IsActive = false;
             _context.PlantDiseases.Remove(plantDisease);
         }
 

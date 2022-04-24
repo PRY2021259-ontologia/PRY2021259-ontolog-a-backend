@@ -8,7 +8,5 @@ namespace Ontologia.API.Resources
         public string Comment { get; set; }
         [Required]
         public string OptionalEmail { get; set; }
-        [Required]
-        public bool isActive { get; set; }
     }
 }
