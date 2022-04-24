@@ -50,6 +50,7 @@ builder.Services.AddScoped<ICategoryDiseaseRepository, CategoryDiseaseRepository
 builder.Services.AddScoped<IPlantDiseaseRepository, PlantDiseaseRepository>();
 builder.Services.AddScoped<IUserConceptPlantDiseaseRepository, UserConceptPlantDiseaseRepository>();
 builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
+builder.Services.AddScoped<ISuggestionStatusRepository, SuggestionStatusRepository>();
 builder.Services.AddScoped<IStatusTypeRepository, StatusTypeRepository>();
 
 // Services
@@ -64,7 +65,7 @@ builder.Services.AddScoped<ICategoryDiseaseService, CategoryDiseaseService>();
 builder.Services.AddScoped<IPlantDiseaseService, PlantDiseaseService>();
 builder.Services.AddScoped<IUserConceptPlantDiseaseService, UserConceptPlantDiseaseService>();
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
-
+builder.Services.AddScoped<ISuggestionStatusService, SuggestionStatusService>();
 builder.Services.AddScoped<IStatusTypeService, StatusTypeService>();
 
 //Endpoinst case conventions configurations
