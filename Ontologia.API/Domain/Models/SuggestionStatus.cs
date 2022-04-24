@@ -3,8 +3,8 @@
     public class SuggestionStatus
     {
         public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string SuggestionStatusTitle { get; set; }
+        public string SuggestionStatusDescription { get; set; }
         public string Usl { get; set; }
         public bool IsProcessed { get; set; }
         public bool IsActive { get; set; }
