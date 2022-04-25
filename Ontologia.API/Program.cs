@@ -19,8 +19,9 @@ builder.Configuration
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(
-    b => b.AllowAnyOrigin()
+builder.Services.AddCors(
+    options => options.AddDefaultPolicy(b => 
+        b.AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()
         .DisallowCredentials()));
@@ -103,7 +104,7 @@ using (var context = scope.ServiceProvider.GetService<AppDbContext>())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
+app.UseCors();
 //
 app.UseRouting();
 app.UseAuthorization();
