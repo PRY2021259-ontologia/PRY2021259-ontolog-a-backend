@@ -102,6 +102,23 @@ namespace Ontologia.API.Controllers
         }
 
         // HTTP Methods for StatusType Entity
+
+        [HttpGet("statusTypes/{statusTypeId}/suggestionStatuses")]
+        [SwaggerOperation(
+           Summary = "Get All SuggestionStatuses by StatusTypeId",
+           Description = "Get All SuggestionStatuses In the DataBase by StatusTypeId",
+           OperationId = "GetAllSuggestionStatusesByStatusTypeId"
+        )]
+        [SwaggerResponse(200, "Returned All SuggestionStatuses", typeof(IEnumerable<SuggestionStatus>))]
+        [ProducesResponseType(typeof(IEnumerable<SuggestionStatusResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<SuggestionStatusResource>> GetAllByStatusTypeId(Guid statusTypeId)
+        {
+            var suggestionStatuses = await _suggestionStatusService.ListByStatusTypeId(statusTypeId);
+            var resources = _mapper.Map<IEnumerable<SuggestionStatus>, IEnumerable<SuggestionStatusResource>>(suggestionStatuses);
+            return resources;
+        }
+
         [HttpPost("statusTypes/{statusTypeId}/suggestionStatuses/{suggestionStatusId}")]
         [SwaggerOperation(
             Summary = "Assign SuggestionStatus to StatusType",
@@ -141,6 +158,23 @@ namespace Ontologia.API.Controllers
         }
 
         // HTTP Methods for UserSuggestion Entity
+
+        [HttpGet("userSuggestions/{userSuggestionId}/suggestionStatuses")]
+        [SwaggerOperation(
+           Summary = "Get All SuggestionStatuses by UserSuggestionId",
+           Description = "Get All SuggestionStatuses In the DataBase by UserSuggestionId",
+           OperationId = "GetAllSuggestionStatusesByUserSuggestionId"
+        )]
+        [SwaggerResponse(200, "Returned All SuggestionStatuses", typeof(IEnumerable<SuggestionStatus>))]
+        [ProducesResponseType(typeof(IEnumerable<SuggestionStatusResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<SuggestionStatusResource>> GetAllByUserSuggestionId(Guid userSuggestionId)
+        {
+            var suggestionStatuses = await _suggestionStatusService.ListByUserSuggestionId(userSuggestionId);
+            var resources = _mapper.Map<IEnumerable<SuggestionStatus>, IEnumerable<SuggestionStatusResource>>(suggestionStatuses);
+            return resources;
+        }
+
         [HttpPost("userSuggestions/{userSuggestionId}/suggestionStatuses/{suggestionStatusId}")]
         [SwaggerOperation(
             Summary = "Assign SuggestionStatus to UserSuggestion",

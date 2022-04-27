@@ -99,6 +99,24 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
+        // Methods for User Entity
+
+        [HttpGet("users/{userId}/userHistories")]
+        [SwaggerOperation(
+          Summary = "Get All UserHistories by UserId",
+          Description = "Get All UserHistories In the DataBase by UserId",
+          OperationId = "GetAllUserHistoriesByUserId"
+        )]
+        [SwaggerResponse(200, "Returned All UserHistories", typeof(IEnumerable<UserHistory>))]
+        [ProducesResponseType(typeof(IEnumerable<UserHistoryResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserHistoryResource>> GetAllByUserId(Guid userId)
+        {
+            var userHistories = await _userHistoryService.ListByUserId(userId);
+            var resources = _mapper.Map<IEnumerable<UserHistory>, IEnumerable<UserHistoryResource>>(userHistories);
+            return resources;
+        }
+
         [HttpPost("{userHistoryId}/userHistories/{userId}")]
         [SwaggerOperation(
             Summary = "Assign userHistory to user",

@@ -136,6 +136,23 @@ namespace Ontologia.API.Controllers
         }
 
         // HTTP Methods for UserType Entity
+
+        [HttpGet("userTypes/{userTypeId}/users")]
+        [SwaggerOperation(
+          Summary = "Get All Users by UserTypeId",
+          Description = "Get All Users In the DataBase by UserTypeId",
+          OperationId = "GetAllUsersByUserTypeId"
+        )]
+        [SwaggerResponse(200, "Returned All Users", typeof(IEnumerable<User>))]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserResource>> GetAllByUserTypeId(Guid userTypeId)
+        {
+            var users = await _userService.ListByUserTypeId(userTypeId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return resources;
+        }
+
         [HttpPost]
         [Route("userTypes/{userTypeId}/users/{userId}")]
         [SwaggerOperation(

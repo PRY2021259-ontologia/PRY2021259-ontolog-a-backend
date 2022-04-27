@@ -13,7 +13,7 @@ namespace Ontologia.API.Domain.Services
         Task<PlantDiseaseResponse> Delete(Guid plantDiseaseId);
 
         // Methods for CategoryDisease Entity
-        Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId);
+        Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseId(Guid categoryDiseaseId);
         Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
         Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
 

@@ -103,6 +103,22 @@ namespace Ontologia.API.Controllers
 
         // HTTP Methods for User Entity
 
+        [HttpGet("users/{userId}/userSuggestions")]
+        [SwaggerOperation(
+          Summary = "Get All UserSuggestions by UserId",
+          Description = "Get All UserSuggestions In the DataBase by UserId",
+          OperationId = "GetAllUserSuggestionsByUserId"
+         )]
+        [SwaggerResponse(200, "Returned All UserSuggestions", typeof(IEnumerable<UserSuggestion>))]
+        [ProducesResponseType(typeof(IEnumerable<UserSuggestionResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserSuggestionResource>> GetAllByUserId(Guid userId)
+        {
+            var userSuggestions = await _userSuggestionService.ListByUserId(userId);
+            var resources = _mapper.Map<IEnumerable<UserSuggestion>, IEnumerable<UserSuggestionResource>>(userSuggestions);
+            return resources;
+        }
+
         [HttpPost("users/{userId}/userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(
             Summary = "Assign userSuggestion to user",
@@ -142,6 +158,22 @@ namespace Ontologia.API.Controllers
         }
 
         // HTTP Methods for SuggestionType Entity
+
+        [HttpGet("suggestionTypes/{suggestionTypeId}/userSuggestions")]
+        [SwaggerOperation(
+          Summary = "Get All UserSuggestions by SuggestionTypeId",
+          Description = "Get All UserSuggestions In the DataBase by SuggestionTypeId",
+          OperationId = "GetAllUserSuggestionsByUserId"
+        )]
+        [SwaggerResponse(200, "Returned All UserSuggestions", typeof(IEnumerable<UserSuggestion>))]
+        [ProducesResponseType(typeof(IEnumerable<UserSuggestionResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserSuggestionResource>> GetAllBySuggestionTypeId(Guid suggestionTypeId)
+        {
+            var userSuggestions = await _userSuggestionService.ListBySuggestionTypeId(suggestionTypeId);
+            var resources = _mapper.Map<IEnumerable<UserSuggestion>, IEnumerable<UserSuggestionResource>>(userSuggestions);
+            return resources;
+        }
 
         [HttpPost("suggestionTypes/{suggestionTypeId}/userSuggestions/{userSuggestionId}")]
         [SwaggerOperation(

@@ -89,7 +89,7 @@ namespace Ontologia.API.Services
         }
 
         // Methods for CategoryDisease Entity
-        public async Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId)
+        public async Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseId(Guid categoryDiseaseId)
         {
             return await _plantDiseaseRepository.ListByCategoryDiseaseIdAsync(categoryDiseaseId);
         }
