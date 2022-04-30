@@ -25,7 +25,8 @@ namespace Ontologia.API.Services
 
             try
             {
-                _userTypeRepository.Remove(existingUserType);
+                existingUserType.IsActive = false;
+                _userTypeRepository.Update(existingUserType);
                 await _unitOfWork.CompleteAsync();
 
                 return new UserTypeResponse(existingUserType);
@@ -40,7 +41,7 @@ namespace Ontologia.API.Services
         {
             var existingUserType = await _userTypeRepository.FindById(id);
 
-            if (existingUserType == null)
+            if (existingUserType == null || !existingUserType.IsActive)
                 return new UserTypeResponse("UserType Not Found");
 
             return new UserTypeResponse(existingUserType);
@@ -48,7 +49,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<UserType>> ListAsync()
         {
-            return await _userTypeRepository.ListAsync();
+            var all = await _userTypeRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<UserTypeResponse> SaveAsync(UserType userType)

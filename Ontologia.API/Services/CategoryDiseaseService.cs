@@ -25,7 +25,9 @@ namespace Ontologia.API.Services
 
             try
             {
-                _categoryDiseaseRepository.Remove(existingCategoryDisease);
+                existingCategoryDisease.IsActive = false;
+                _categoryDiseaseRepository.Update(existingCategoryDisease);
+                //_categoryDiseaseRepository.Remove(existingCategoryDisease);
                 await _unitOfWork.CompleteAsync();
 
                 return new CategoryDiseaseResponse(existingCategoryDisease);
@@ -40,7 +42,7 @@ namespace Ontologia.API.Services
         {
             var existingCategoryDisease = await _categoryDiseaseRepository.FindById(id);
 
-            if (existingCategoryDisease == null)
+            if (existingCategoryDisease == null || !existingCategoryDisease.IsActive)
                 return new CategoryDiseaseResponse("CategoryDisease Not Found");
 
             return new CategoryDiseaseResponse(existingCategoryDisease);
@@ -48,7 +50,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<CategoryDisease>> ListAsync()
         {
-            return await _categoryDiseaseRepository.ListAsync();
+            var all = await _categoryDiseaseRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<CategoryDiseaseResponse> SaveAsync(CategoryDisease categoryDisease)

@@ -20,7 +20,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<User>> ListAsync()
         {
-            return await _userRepository.ListAsync();
+            var all = await _userRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<UserResponse> DeleteAsync(Guid id)
@@ -32,7 +33,8 @@ namespace Ontologia.API.Services
 
             try
             {
-                _userRepository.Remove(existingUser);
+                existingUser.IsActive = false;
+                _userRepository.Update(existingUser);
                 await _unitOfWork.CompleteAsync();
 
                 return new UserResponse(existingUser);
@@ -48,7 +50,7 @@ namespace Ontologia.API.Services
         {
             var existingUser = await _userRepository.FindById(id);
 
-            if (existingUser == null)
+            if (existingUser == null || !existingUser.IsActive)
                 return new UserResponse("User Not Found");
 
             return new UserResponse(existingUser);

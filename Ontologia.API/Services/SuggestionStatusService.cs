@@ -34,13 +34,14 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<SuggestionStatus>> ListAsync()
         {
-            return await _suggestionStatusRepository.ListAsync();
+            var all = await _suggestionStatusRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<SuggestionStatusResponse> GetById(Guid suggestionStatusId)
         {
             var existingSuggestionStatus = await _suggestionStatusRepository.GetById(suggestionStatusId);
-            if (existingSuggestionStatus == null)
+            if (existingSuggestionStatus == null || !existingSuggestionStatus.IsActive)
                 return new SuggestionStatusResponse("SuggestionStatus Not Found");
             return new SuggestionStatusResponse(existingSuggestionStatus);
         }
@@ -78,7 +79,8 @@ namespace Ontologia.API.Services
                 return new SuggestionStatusResponse("SuggestionStatus Not Found");
             try
             {
-                _suggestionStatusRepository.Remove(existingSuggestionStatus);
+                existingSuggestionStatus.IsActive = false;
+                _suggestionStatusRepository.Update(existingSuggestionStatus);
                 await _unitOfWork.CompleteAsync();
                 return new SuggestionStatusResponse(existingSuggestionStatus);
             }

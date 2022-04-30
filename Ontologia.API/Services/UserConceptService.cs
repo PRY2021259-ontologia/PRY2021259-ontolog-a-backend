@@ -36,13 +36,14 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<UserConcept>> ListAsync()
         {
-            return await _userConceptRepository.ListAsync();
+            var all = await _userConceptRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<UserConceptResponse> GetById(Guid userConceptId)
         {
             var existingUserConcept = await _userConceptRepository.GetById(userConceptId);
-            if (existingUserConcept == null)
+            if (existingUserConcept == null || !existingUserConcept.IsActive)
                 return new UserConceptResponse("UserConcept Not Found");
             return new UserConceptResponse(existingUserConcept);
         }
@@ -79,7 +80,8 @@ namespace Ontologia.API.Services
                 return new UserConceptResponse("UserConcept Not Found");
             try
             {
-                _userConceptRepository.Remove(existingUserConcept);
+                existingUserConcept.IsActive = false;
+                _userConceptRepository.Update(existingUserConcept);
                 await _unitOfWork.CompleteAsync();
                 return new UserConceptResponse(existingUserConcept);
             }

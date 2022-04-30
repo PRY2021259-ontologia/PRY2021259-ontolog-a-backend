@@ -39,7 +39,8 @@ namespace Ontologia.API.Services
                 return new UserSuggestionResponse("UserSuggestion Not Found");
             try
             {
-                _userSuggestionRepository.Remove(existingUserSuggestion);
+                existingUserSuggestion.IsActive = false;
+                _userSuggestionRepository.Update(existingUserSuggestion);
                 await _unitOfWork.CompleteAsync();
                 return new UserSuggestionResponse(existingUserSuggestion);
             }
@@ -52,14 +53,15 @@ namespace Ontologia.API.Services
         public async Task<UserSuggestionResponse> GetById(Guid userSuggestionId)
         {
             var existingUserSuggestion = await _userSuggestionRepository.GetById(userSuggestionId);
-            if (existingUserSuggestion == null)
+            if (existingUserSuggestion == null || !existingUserSuggestion.IsActive)
                 return new UserSuggestionResponse("UserSuggestion Not Found");
             return new UserSuggestionResponse(existingUserSuggestion);
         }
 
         public async Task<IEnumerable<UserSuggestion>> ListAsync()
         {
-            return await _userSuggestionRepository.ListAsync();
+            var all = await _userSuggestionRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<UserSuggestionResponse> Update(Guid userSuggestionId, UserSuggestion userSuggestion)
