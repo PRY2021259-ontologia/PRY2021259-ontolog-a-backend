@@ -81,10 +81,11 @@ namespace Ontologia.API.Services
             existingUser.Name = user.Name;
             existingUser.LastName = user.LastName;
             existingUser.Email = user.Email;
+            existingUser.DateOfBirth = user.DateOfBirth;
+            existingUser.Occupation = user.Occupation;
             existingUser.IsActive = user.IsActive;
             existingUser.CreatedOn = user.CreatedOn;
             existingUser.ModifiedOn = user.ModifiedOn;
-
 
             try
             {
