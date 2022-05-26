@@ -40,7 +40,7 @@ namespace Ontologia.API.Services
         {
             var existingSuggestionType = await _suggestionTypeRepository.FindById(id);
 
-            if (existingSuggestionType == null)
+            if (existingSuggestionType == null || !existingSuggestionType.IsActive)
                 return new SuggestionTypeResponse("SuggestionType Not Found");
 
             return new SuggestionTypeResponse(existingSuggestionType);
@@ -48,7 +48,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<SuggestionType>> ListAsync()
         {
-            return await _suggestionTypeRepository.ListAsync();
+            var all = await _suggestionTypeRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<SuggestionTypeResponse> SaveAsync(SuggestionType suggestionType)

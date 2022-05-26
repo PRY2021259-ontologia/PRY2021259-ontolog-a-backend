@@ -36,13 +36,14 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<PlantDisease>> ListAsync()
         {
-            return await _plantDiseaseRepository.ListAsync();
+            var all = await _plantDiseaseRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<PlantDiseaseResponse> GetById(Guid plantDiseaseId)
         {
             var existingPlantDisease = await _plantDiseaseRepository.GetById(plantDiseaseId);
-            if (existingPlantDisease == null)
+            if (existingPlantDisease == null || !existingPlantDisease.IsActive)
                 return new PlantDiseaseResponse("PlantDisease Not Found");
             return new PlantDiseaseResponse(existingPlantDisease);
         }
@@ -78,7 +79,8 @@ namespace Ontologia.API.Services
                 return new PlantDiseaseResponse("PlantDisease Not Found");
             try
             {
-                _plantDiseaseRepository.Remove(existingPlantDisease);
+                existingPlantDisease.IsActive = false;
+                _plantDiseaseRepository.Update(existingPlantDisease);
                 await _unitOfWork.CompleteAsync();
                 return new PlantDiseaseResponse(existingPlantDisease);
             }

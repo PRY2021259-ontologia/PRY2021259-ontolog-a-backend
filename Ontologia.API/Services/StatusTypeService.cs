@@ -20,7 +20,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<StatusType>> ListAsync()
         {
-            return await _statusTypeRepository.ListAsync();
+            var all = await _statusTypeRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<StatusTypeResponse> DeleteAsync(Guid id)
@@ -32,7 +33,8 @@ namespace Ontologia.API.Services
 
             try
             {
-                _statusTypeRepository.Remove(existingStatusType);
+                existingStatusType.IsActive = false;
+                _statusTypeRepository.Update(existingStatusType);
                 await _unitOfWork.CompleteAsync();
 
                 return new StatusTypeResponse(existingStatusType);
@@ -48,7 +50,7 @@ namespace Ontologia.API.Services
         {
             var existingStatusType = await _statusTypeRepository.FindById(id);
 
-            if (existingStatusType == null)
+            if (existingStatusType == null || !existingStatusType.IsActive)
                 return new StatusTypeResponse("StatusType Not Found");
 
             return new StatusTypeResponse(existingStatusType);

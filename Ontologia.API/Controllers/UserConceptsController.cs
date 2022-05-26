@@ -103,6 +103,22 @@ namespace Ontologia.API.Controllers
 
         // HTTP Methods for User Entity
 
+        [HttpGet("users/{userId}/userConcepts")]
+        [SwaggerOperation(
+           Summary = "Get All UserConcepts by UserId",
+           Description = "Get All UserConcepts In the DataBase by UserId",
+           OperationId = "GetAllUserConceptsByUserId"
+        )]
+        [SwaggerResponse(200, "Returned All UserConcepts", typeof(IEnumerable<UserConcept>))]
+        [ProducesResponseType(typeof(IEnumerable<UserConceptResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserConceptResource>> GetAllByUserId(Guid userId)
+        {
+            var userConcepts = await _userConceptService.ListByUserId(userId);
+            var resources = _mapper.Map<IEnumerable<UserConcept>, IEnumerable<UserConceptResource>>(userConcepts);
+            return resources;
+        }
+
         [HttpPost]
         [Route("users/{userId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
@@ -143,6 +159,23 @@ namespace Ontologia.API.Controllers
         }
 
         // HTTP Methods for ConceptType Entity
+
+        [HttpGet("conceptTypes/{conceptTypeId}/userConcepts")]
+        [SwaggerOperation(
+            Summary = "Get All UserConcepts by ConceptTypeId",
+            Description = "Get All UserConcepts In the DataBase by ConceptTypeId",
+            OperationId = "GetAllUserConceptsByConceptTypeId"
+        )]
+        [SwaggerResponse(200, "Returned All UserConcepts", typeof(IEnumerable<UserConcept>))]
+        [ProducesResponseType(typeof(IEnumerable<UserConceptResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserConceptResource>> GetAllByConceptTypeId(Guid conceptTypeId)
+        {
+            var userConcepts = await _userConceptService.ListByConceptTypeId(conceptTypeId);
+            var resources = _mapper.Map<IEnumerable<UserConcept>, IEnumerable<UserConceptResource>>(userConcepts);
+            return resources;
+        }
+
         [HttpPost("conceptTypes/{conceptTypeId}/userConcepts/{userConceptId}")]
         [SwaggerOperation(
             Summary = "Assign userConcet to conceptType",

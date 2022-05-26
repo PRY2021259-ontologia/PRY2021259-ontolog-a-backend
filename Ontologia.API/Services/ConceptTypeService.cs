@@ -25,7 +25,8 @@ namespace Ontologia.API.Services
 
             try
             {
-                _conceptTypeRepository.Remove(existingConceptType);
+                existingConceptType.IsActive = false;
+                _conceptTypeRepository.Update(existingConceptType);
                 await _unitOfWork.CompleteAsync();
 
                 return new ConceptTypeResponse(existingConceptType);
@@ -40,7 +41,7 @@ namespace Ontologia.API.Services
         {
             var existingConceptType = await _conceptTypeRepository.FindById(id);
 
-            if (existingConceptType == null)
+            if (existingConceptType == null || !existingConceptType.IsActive)
                 return new ConceptTypeResponse("ConceptType Not Found");
 
             return new ConceptTypeResponse(existingConceptType);
@@ -48,7 +49,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<ConceptType>> ListAsync()
         {
-            return await _conceptTypeRepository.ListAsync();
+            var all = await _conceptTypeRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<ConceptTypeResponse> SaveAsync(ConceptType conceptType)

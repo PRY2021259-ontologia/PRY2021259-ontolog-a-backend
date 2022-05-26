@@ -38,7 +38,8 @@ namespace Ontologia.API.Services
                 return new UserHistoryResponse("UserHistory Not Found");
             try
             {
-                _userHistoryRepository.Remove(existingUserHistory);
+                existingUserHistory.IsActive = false;
+                _userHistoryRepository.Update(existingUserHistory);
                 await _unitOfWork.CompleteAsync();
                 return new UserHistoryResponse(existingUserHistory);
             }
@@ -51,14 +52,15 @@ namespace Ontologia.API.Services
         public async Task<UserHistoryResponse> GetById(Guid userHistoryId)
         {
             var existingUserHistory = await _userHistoryRepository.GetById(userHistoryId);
-            if (existingUserHistory == null)
+            if (existingUserHistory == null || !existingUserHistory.IsActive)
                 return new UserHistoryResponse("UserHistory Not Found");
             return new UserHistoryResponse(existingUserHistory);
         }
 
         public async Task<IEnumerable<UserHistory>> ListAsync()
         {
-            return await _userHistoryRepository.ListAsync();
+            var all = await _userHistoryRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<IEnumerable<UserHistory>> ListByUserId(Guid userId)

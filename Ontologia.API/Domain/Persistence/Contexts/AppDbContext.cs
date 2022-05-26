@@ -40,6 +40,8 @@ namespace Ontologia.API.Domain.Persistence.Contexts
             builder.Entity<User>().Property(p => p.Name).IsRequired();
             builder.Entity<User>().Property(p => p.LastName).IsRequired();
             builder.Entity<User>().Property(p => p.Email).IsRequired();
+            builder.Entity<User>().Property(p => p.DateOfBirth).IsRequired();
+            builder.Entity<User>().Property(p => p.Occupation).IsRequired();
             builder.Entity<User>().Property(p => p.IsActive).IsRequired();
             builder.Entity<User>().Property(p => p.CreatedOn).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.ModifiedOn).IsRequired().ValueGeneratedOnAdd();

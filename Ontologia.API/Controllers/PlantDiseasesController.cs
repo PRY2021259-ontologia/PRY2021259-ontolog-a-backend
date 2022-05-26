@@ -101,8 +101,26 @@ namespace Ontologia.API.Controllers
             return resources;
         }
 
-       
+
         // HTTP Methods for CategoryDisease Entity
+
+        [HttpGet("categoryDiseases/{categoryDiseaseId}/plantDiseases")]
+        [SwaggerOperation(
+           Summary = "Get All PlantDiseases by CategoryDisease Id",
+           Description = "Get All PlantDiseases In the Data Base by CategoryDisease Id",
+           OperationId = "GetAllPlantDiseasesByCategoryDiseaseId"
+        )]
+        [SwaggerResponse(200, "Returned All PlantDiseases", typeof(IEnumerable<PlantDiseaseResource>))]
+        [ProducesResponseType(typeof(IEnumerable<PlantDiseaseResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<PlantDiseaseResource>> GetAllByCategoryDiseaseId(Guid categoryDiseaseId)
+        {
+            var plantDiseases = await _plantDiseaseService.ListByCategoryDiseaseId(categoryDiseaseId);
+            var resources = _mapper.Map<IEnumerable<PlantDisease>, IEnumerable<PlantDiseaseResource>>(plantDiseases);
+            return resources;
+        }
+
+
         [HttpPost("categoryDiseases/{categoryDiseaseId}/plantDiseases/{plantDiseaseId}")]
         [SwaggerOperation(
             Summary = "Assign plantDisease to categoryDisease",

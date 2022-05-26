@@ -22,7 +22,8 @@ namespace Ontologia.API.Services
 
         public async Task<IEnumerable<UserLogin>> ListAsync()
         {
-            return await _userLoginRepository.ListAsync();
+            var all = await _userLoginRepository.ListAsync();
+            return all.Where(x => x.IsActive);
         }
 
         public async Task<UserLoginResponse> DeleteAsync(Guid id)
@@ -34,7 +35,8 @@ namespace Ontologia.API.Services
 
             try
             {
-                _userLoginRepository.Remove(existingUserLogin);
+                existingUserLogin.IsActive = false;
+                _userLoginRepository.Update(existingUserLogin);
                 await _unitOfWork.CompleteAsync();
 
                 return new UserLoginResponse(existingUserLogin);
@@ -50,7 +52,7 @@ namespace Ontologia.API.Services
         {
             var existingUserLogin = await _userLoginRepository.FindById(id);
 
-            if (existingUserLogin == null)
+            if (existingUserLogin == null || !existingUserLogin.IsActive)
                 return new UserLoginResponse("UserLogin Not Found");
 
             return new UserLoginResponse(existingUserLogin);
