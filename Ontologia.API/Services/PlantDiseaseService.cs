@@ -1,7 +1,9 @@
-﻿using Ontologia.API.Domain.Models;
+﻿using AutoMapper;
+using Ontologia.API.Domain.Models;
 using Ontologia.API.Domain.Persistence.Repositories;
 using Ontologia.API.Domain.Services;
 using Ontologia.API.Domain.Services.Communications;
+using Ontologia.API.Resources;
 
 namespace Ontologia.API.Services
 {
@@ -9,12 +11,16 @@ namespace Ontologia.API.Services
     {
         private readonly IPlantDiseaseRepository _plantDiseaseRepository;
         private readonly IUserConceptPlantDiseaseRepository _userConceptPlantDiseaseRepository;
+        private readonly ISearchService _searchService;
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public PlantDiseaseService(IPlantDiseaseRepository plantDiseaseRepository, IUnitOfWork unitOfWork, IUserConceptPlantDiseaseRepository userConceptPlantDiseaseRepository)
+        public PlantDiseaseService(IPlantDiseaseRepository plantDiseaseRepository, IUnitOfWork unitOfWork, IUserConceptPlantDiseaseRepository userConceptPlantDiseaseRepository, ISearchService searchService, IMapper mapper)
         {
             _plantDiseaseRepository = plantDiseaseRepository;
             _userConceptPlantDiseaseRepository = userConceptPlantDiseaseRepository;
+            _searchService = searchService;
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
@@ -40,6 +46,24 @@ namespace Ontologia.API.Services
             return all.Where(x => x.IsActive);
         }
 
+        public async Task<PlantDiseaseResponse?> GetByOntologyId(string ontologyId)
+        {
+            var existingPlantDisease = await _plantDiseaseRepository.GetByOntologyId(ontologyId);
+            if (existingPlantDisease != null) return new PlantDiseaseResponse(existingPlantDisease);
+            
+            var plantDiseaseByOntology = await _searchService.GetPlantDiseaseByOntologyId(ontologyId);
+            if (plantDiseaseByOntology == null) return new PlantDiseaseResponse("PlantDisease Not Found");
+            var plantDiseaseToRegister = new SavePlantDiseaseResource()
+            {
+                PlantDiseaseName = plantDiseaseByOntology.NombreComun,
+                PlantDiseaseDescription = plantDiseaseByOntology.Descripcion
+            };
+            var plantDisease = _mapper.Map<SavePlantDiseaseResource, PlantDisease>(plantDiseaseToRegister);
+            plantDisease.OntologyId = ontologyId;
+            var plantRegistered = await SaveAsync(plantDisease);
+            existingPlantDisease = plantRegistered.Resource;
+            return new PlantDiseaseResponse(existingPlantDisease);
+        }
         public async Task<PlantDiseaseResponse> GetById(Guid plantDiseaseId)
         {
             var existingPlantDisease = await _plantDiseaseRepository.GetById(plantDiseaseId);

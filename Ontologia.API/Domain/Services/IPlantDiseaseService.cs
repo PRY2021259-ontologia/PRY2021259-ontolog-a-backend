@@ -9,6 +9,7 @@ namespace Ontologia.API.Domain.Services
         Task<PlantDiseaseResponse> SaveAsync(PlantDisease plantDisease);
         Task<IEnumerable<PlantDisease>> ListAsync();
         Task<PlantDiseaseResponse> GetById(Guid plantDiseaseId);
+        Task<PlantDiseaseResponse?> GetByOntologyId(string ontologyId);
         Task<PlantDiseaseResponse> Update(Guid plantDiseaseId, PlantDisease plantDisease);
         Task<PlantDiseaseResponse> Delete(Guid plantDiseaseId);
 

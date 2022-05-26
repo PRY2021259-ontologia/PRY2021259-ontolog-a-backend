@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Ontologia.API.Domain.Persistence.Contexts;
 using Ontologia.API.Domain.Persistence.Repositories;
 using Ontologia.API.Domain.Services;
+using Ontologia.API.Extensions;
 using Ontologia.API.Persistence.Repositories;
 using Ontologia.API.Services;
 
@@ -55,6 +56,7 @@ builder.Services.AddScoped<ISuggestionStatusRepository, SuggestionStatusReposito
 builder.Services.AddScoped<IStatusTypeRepository, StatusTypeRepository>();
 
 // Services
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserConceptService, UserConceptService>();
 builder.Services.AddScoped<IUserSuggestionService, UserSuggestionService>();
@@ -68,6 +70,8 @@ builder.Services.AddScoped<IUserConceptPlantDiseaseService, UserConceptPlantDise
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 builder.Services.AddScoped<ISuggestionStatusService, SuggestionStatusService>();
 builder.Services.AddScoped<IStatusTypeService, StatusTypeService>();
+
+builder.Services.AddScoped<IRestClientExtensions, RestClientExtensions>();
 
 //Endpoinst case conventions configurations
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

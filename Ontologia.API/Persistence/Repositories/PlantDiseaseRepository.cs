@@ -27,7 +27,10 @@ namespace Ontologia.API.Persistence.Repositories
         {
             return await _context.PlantDiseases.FindAsync(plantDiseaseId);
         }
-
+        public async Task<PlantDisease?> GetByOntologyId(string ontologyId)
+        {
+            return await _context.PlantDiseases.FirstOrDefaultAsync(x=> x.OntologyId == ontologyId && x.IsActive);
+        }
         public void Update(PlantDisease plantDisease)
         {
             _context.PlantDiseases.Update(plantDisease);

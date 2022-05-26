@@ -8,6 +8,7 @@ namespace Ontologia.API.Domain.Persistence.Repositories
         Task AddAsync(PlantDisease plantDisease);
         Task<IEnumerable<PlantDisease>> ListAsync();
         Task<PlantDisease> GetById(Guid plantDiseasetId);
+        Task<PlantDisease?> GetByOntologyId(string ontologyId);
         void Update(PlantDisease plantDisease);
         void Remove(PlantDisease plantDisease);
 
