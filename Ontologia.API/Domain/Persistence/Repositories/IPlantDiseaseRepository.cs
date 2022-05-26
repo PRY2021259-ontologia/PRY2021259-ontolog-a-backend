@@ -12,9 +12,9 @@ namespace Ontologia.API.Domain.Persistence.Repositories
         void Remove(PlantDisease plantDisease);
 
         // Methods for CategoryDisease Entity
-        Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseIdAsync(Guid categoryDiseaseId);
-        Task AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
-        Task UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
+        Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseIdAsync(long categoryDiseaseId);
+        Task AssingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId);
+        Task UnassingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId);
 
     }
 }

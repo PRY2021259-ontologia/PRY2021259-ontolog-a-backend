@@ -112,7 +112,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "plantDisease to categoryDisease Assigned", typeof(PlantDiseaseResource))]
         [ProducesResponseType(typeof(PlantDiseaseResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> AssignPlantDiseaseToConceptType(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task<IActionResult> AssignPlantDiseaseToConceptType(long categoryDiseaseId, Guid plantDiseaseId)
         {
             var result = await _plantDiseaseService.AssingPlantDiseaseToCategoryDisease(categoryDiseaseId, plantDiseaseId);
             if (!result.Success)
@@ -131,7 +131,7 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "plantDisease to categoryDisease Unassigned", typeof(PlantDiseaseResource))]
         [ProducesResponseType(typeof(PlantDiseaseResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> UnassignPlantDiseaseToConceptType(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task<IActionResult> UnassignPlantDiseaseToConceptType(long categoryDiseaseId, Guid plantDiseaseId)
         {
             var result = await _plantDiseaseService.UnassingPlantDiseaseToCategoryDisease(categoryDiseaseId, plantDiseaseId);
             if (!result.Success)

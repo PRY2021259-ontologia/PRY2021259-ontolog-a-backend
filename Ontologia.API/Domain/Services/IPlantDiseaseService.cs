@@ -13,9 +13,9 @@ namespace Ontologia.API.Domain.Services
         Task<PlantDiseaseResponse> Delete(Guid plantDiseaseId);
 
         // Methods for CategoryDisease Entity
-        Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId);
-        Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
-        Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId);
+        Task<IEnumerable<PlantDisease>> ListByConceptTypeId(long categoryDiseaseId);
+        Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId);
+        Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId);
 
 
         // Methods for UserConceptPlantDisease Entity

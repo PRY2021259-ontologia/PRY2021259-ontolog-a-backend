@@ -2,7 +2,7 @@
 {
     public class CategoryDiseaseResource
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string CategoryDiseaseName { get; set; }
         public string CategoryDiseaseDescription { get; set; }
         public bool IsActive { get; set; }

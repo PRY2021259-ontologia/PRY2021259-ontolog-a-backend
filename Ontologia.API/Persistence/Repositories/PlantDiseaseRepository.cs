@@ -40,12 +40,12 @@ namespace Ontologia.API.Persistence.Repositories
         }
 
         // Methods for CategoryDisease Entity
-        public async Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseIdAsync(Guid categoryDiseaseId)
+        public async Task<IEnumerable<PlantDisease>> ListByCategoryDiseaseIdAsync(long categoryDiseaseId)
         {
             return await _context.PlantDiseases.Where(pD => pD.CategoryDiseaseId == categoryDiseaseId).ToListAsync();
         }
 
-        public async Task AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task AssingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId)
         {
             CategoryDisease categoryDisease = await _context.CategoryDiseases.FindAsync(categoryDiseaseId);
             PlantDisease plantDisease = await _context.PlantDiseases.FindAsync(plantDiseaseId);
@@ -57,11 +57,11 @@ namespace Ontologia.API.Persistence.Repositories
             }
         }
 
-        public async Task UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task UnassingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId)
         {
             CategoryDisease categoryDisease = await _context.CategoryDiseases.FindAsync(categoryDiseaseId);
             PlantDisease plantDisease = await _context.PlantDiseases.FindAsync(plantDiseaseId);
-            var newId = Guid.Empty;
+            var newId = default(long);
 
             if (categoryDisease != null && plantDisease != null)
             {

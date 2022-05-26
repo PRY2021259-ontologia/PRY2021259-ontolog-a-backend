@@ -89,12 +89,12 @@ namespace Ontologia.API.Services
         }
 
         // Methods for CategoryDisease Entity
-        public async Task<IEnumerable<PlantDisease>> ListByConceptTypeId(Guid categoryDiseaseId)
+        public async Task<IEnumerable<PlantDisease>> ListByConceptTypeId(long categoryDiseaseId)
         {
             return await _plantDiseaseRepository.ListByCategoryDiseaseIdAsync(categoryDiseaseId);
         }
 
-        public async Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task<PlantDiseaseResponse> AssingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Ontologia.API.Services
             }
         }
 
-        public async Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(Guid categoryDiseaseId, Guid plantDiseaseId)
+        public async Task<PlantDiseaseResponse> UnassingPlantDiseaseToCategoryDisease(long categoryDiseaseId, Guid plantDiseaseId)
         {
             try
             {
