@@ -113,9 +113,9 @@ namespace Ontologia.API.Controllers
         [SwaggerResponse(200, "Returned All PlantDiseases", typeof(IEnumerable<PlantDiseaseResource>))]
         [ProducesResponseType(typeof(IEnumerable<PlantDiseaseResource>), 200)]
         [Produces("application/json")]
-        public async Task<IEnumerable<PlantDiseaseResource>> GetAllByCategoryDiseaseId(Guid categoryDiseaseId)
+        public async Task<IEnumerable<PlantDiseaseResource>> GetAllByCategoryDiseaseId(long categoryDiseaseId)
         {
-            var plantDiseases = await _plantDiseaseService.ListByCategoryDiseaseId(categoryDiseaseId);
+            var plantDiseases = await _plantDiseaseService.ListByConceptTypeId(categoryDiseaseId);
             var resources = _mapper.Map<IEnumerable<PlantDisease>, IEnumerable<PlantDiseaseResource>>(plantDiseases);
             return resources;
         }
