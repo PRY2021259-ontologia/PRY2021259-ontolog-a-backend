@@ -49,18 +49,18 @@ namespace Ontologia.API.Controllers
             return Ok(plantDiseaseResource);
         }
 
-        [HttpGet("PlantDiseases/{plantDiseaseId}")]
+        [HttpGet("PlantDiseases/{ontologyId}")]
         [SwaggerOperation(
             Summary = "Get PlantDisease",
-            Description = "Get PlantDisease In the Data Base by id",
+            Description = "Get PlantDisease In the Data Base by Ontology Id",
             OperationId = "GetPlantDisease"
         )]
         [SwaggerResponse(200, "Returned PlantDisease", typeof(PlantDiseaseResource))]
         [ProducesResponseType(typeof(PlantDiseaseResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> GetActionAsync(string plantDiseaseId)
+        public async Task<IActionResult> GetActionAsync(string ontologyId)
         {
-            var result = await _plantDiseaseService.GetByOntologyId(plantDiseaseId);
+            var result = await _plantDiseaseService.GetByOntologyId(ontologyId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var plantDiseaseResource = _mapper.Map<PlantDisease, PlantDiseaseResource>(result.Resource);
