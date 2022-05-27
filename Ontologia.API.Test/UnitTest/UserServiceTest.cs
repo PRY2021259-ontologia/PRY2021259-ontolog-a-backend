@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -29,8 +30,8 @@ namespace Ontologia.API.Test.UnitTest
             var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object);
 
             // Act
-            List<User> result = (List<User>)await service.ListAsync();
-            int usersCount = result.Count;
+            var result = await service.ListAsync();
+            var usersCount = result.ToList().Count;
 
             // Assert
             Assert.AreEqual(0, usersCount);

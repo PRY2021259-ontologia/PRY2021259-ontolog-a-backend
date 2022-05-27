@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -29,8 +30,8 @@ namespace Ontologia.API.Test.UnitTest
             var service = new UserSuggestionService(mockUserSuggestionRepository.Object, mockUnitOfWork.Object);
 
             // Act
-            List<UserSuggestion> result = (List<UserSuggestion>)await service.ListAsync();
-            int userSuggestionsCount = result.Count;
+            var result = await service.ListAsync();
+            var userSuggestionsCount = result.ToList().Count;
 
             // Assert
             Assert.AreEqual(0, userSuggestionsCount);

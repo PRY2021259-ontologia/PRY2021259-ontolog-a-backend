@@ -8,6 +8,9 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using Ontologia.API.Domain.Services;
 
 namespace Ontologia.API.Test.UnitTest
 {
@@ -24,14 +27,15 @@ namespace Ontologia.API.Test.UnitTest
             var mockPlantDiseaseRepository = GetDefaultIPlantDiseaseRepositoryInstance();
             mockPlantDiseaseRepository.Setup(r => r.ListAsync())
                 .ReturnsAsync(new List<PlantDisease>());
-
+            var mockSearchService = GetDefaultISearchServiceInstance();
+            var mockMapperService = GetDefaultIMapperInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserConceptPlantDiseaseRepository = GetDefaultIUserConceptPlantDiseaseRepositoryInstance();
-            var service = new PlantDiseaseService(mockPlantDiseaseRepository.Object, mockUnitOfWork.Object, mockUserConceptPlantDiseaseRepository.Object);
+            var service = new PlantDiseaseService(mockPlantDiseaseRepository.Object, mockUnitOfWork.Object, mockUserConceptPlantDiseaseRepository.Object, mockSearchService.Object, mockMapperService.Object);
 
             // Act
-            List<PlantDisease> result = (List<PlantDisease>)await service.ListAsync();
-            int plantDiseasesCount = result.Count;
+            var result = await service.ListAsync();
+            var plantDiseasesCount = result.ToList().Count;
 
             // Assert
             Assert.AreEqual(0, plantDiseasesCount);
@@ -45,11 +49,12 @@ namespace Ontologia.API.Test.UnitTest
             var plantDiseaseId = Guid.NewGuid();
             mockPlantDiseaseRepository.Setup(r => r.GetById(plantDiseaseId))
                 .Returns(Task.FromResult<PlantDisease>(null));
-
+            var mockSearchService = GetDefaultISearchServiceInstance();
+            var mockMapperService = GetDefaultIMapperInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserConceptPlantDiseaseRepository = GetDefaultIUserConceptPlantDiseaseRepositoryInstance();
 
-            var service = new PlantDiseaseService(mockPlantDiseaseRepository.Object, mockUnitOfWork.Object, mockUserConceptPlantDiseaseRepository.Object);
+            var service = new PlantDiseaseService(mockPlantDiseaseRepository.Object, mockUnitOfWork.Object, mockUserConceptPlantDiseaseRepository.Object, mockSearchService.Object, mockMapperService.Object);
 
             // Act
             PlantDiseaseResponse result = await service.GetById(plantDiseaseId);
@@ -71,6 +76,16 @@ namespace Ontologia.API.Test.UnitTest
         private Mock<IUserConceptPlantDiseaseRepository> GetDefaultIUserConceptPlantDiseaseRepositoryInstance()
         {
             return new Mock<IUserConceptPlantDiseaseRepository>();
+        }
+
+        private Mock<ISearchService> GetDefaultISearchServiceInstance()
+        {
+            return new Mock<ISearchService>();
+        }
+
+        private Mock<IMapper> GetDefaultIMapperInstance()
+        {
+            return new Mock<IMapper>();
         }
     }
 }
