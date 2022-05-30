@@ -48,6 +48,7 @@ namespace Ontologia.API.Services
 
         public async Task<PlantDiseaseResponse?> GetByOntologyId(string ontologyId)
         {
+            ontologyId = ontologyId.ToLower();
             var existingPlantDisease = await _plantDiseaseRepository.GetByOntologyId(ontologyId);
             if (existingPlantDisease != null) return new PlantDiseaseResponse(existingPlantDisease);
             
