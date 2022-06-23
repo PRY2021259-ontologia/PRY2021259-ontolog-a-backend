@@ -7,6 +7,7 @@ public class PlantDiseaseResource
     public string PlantDiseaseName { get; set; }
     public string PlantDiseaseDescription { get; set; }
     public bool IsActive { get; set; }
+    public decimal? AfectaA { get; set; }
     public IEnumerable<SintomaDataResource> Sintomas { get; set; }
     public IEnumerable<AgenteCausalDataResource> AgentesCausales { get; set; }
     public DateTime CreatedOn { get; set; }
