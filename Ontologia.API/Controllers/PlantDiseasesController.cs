@@ -68,6 +68,7 @@ public class PlantDiseasesController : ControllerBase
         var plantDiseaseResource = _mapper.Map<PlantDisease, PlantDiseaseResource>(result.Item1.Resource);
         plantDiseaseResource.Sintomas = result.Item2.Sintomas;
         plantDiseaseResource.AgentesCausales = result.Item2.AgentesCausales;
+        plantDiseaseResource.AfectaA = result.Item2.AfectaA;
         return Ok(plantDiseaseResource);
     }
 
